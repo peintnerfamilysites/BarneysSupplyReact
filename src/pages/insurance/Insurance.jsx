@@ -1,6 +1,9 @@
+import NavBar from "../../utils/navigation/NavBar";
+
 function Insurance() {
   return (
     <div className="insurance">
+      <NavBar />
       <h1>Insurance</h1>
     </div>
   );
