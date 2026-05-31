@@ -98,7 +98,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="navbar absolute lg:static lg:flex lg:justify-between lg:items-center w-full mx-auto h-full lg:h-auto bg-transparent lg:bg-gradient-to-r lg:from-black lg:via-red-950 lg:to-amber-950 lg:px-6">
+    <nav className="navbar absolute lg:static lg:flex lg:justify-between lg:items-center w-full mx-auto h-full lg:h-auto bg-transparent lg:bg-gradient-to-r lg:from-black lg:via-red-950 lg:to-amber-950 lg:px-6 z-40">
       {/* Dynamic Keyframes to handle background/scale pulsing safely without layout interference */}
       <style>{`
         @keyframes customPulse {
