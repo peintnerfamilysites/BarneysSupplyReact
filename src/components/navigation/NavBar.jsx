@@ -91,7 +91,6 @@ function NavBar() {
     }
   };
 
-  // MODIFIED: Added animate__fast to make the inner item transitions snappier
   const getMobileStaggerClass = () => {
     return !isDesktop && isOpen
       ? "animate__animated animate__fadeInUp animate__fast"
@@ -100,17 +99,44 @@ function NavBar() {
 
   return (
     <nav className="navbar absolute lg:static lg:flex lg:justify-between lg:items-center w-full mx-auto h-full lg:h-auto bg-transparent lg:bg-gradient-to-r lg:from-black lg:via-red-950 lg:to-amber-950 lg:px-6">
-      <div className="fixed top-1/2 -translate-y-1/2 right-1 md:right-5 lg:hidden z-50 w-12 h-12 flex items-center justify-center">
+      {/* Dynamic Keyframes to handle background/scale pulsing safely without layout interference */}
+      <style>{`
+        @keyframes customPulse {
+          0%, 100% {
+            transform: scale(1);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+          }
+          50% {
+            transform: scale(1.06);
+            filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.6));
+          }
+        }
+        .nav-trigger-pulse {
+          animation: customPulse 2.2s infinite ease-in-out;
+        }
+      `}</style>
+
+      {/* Interactive Trigger Area */}
+      <div
+        className="fixed top-1/2 -translate-y-1/2 right-1 md:right-5 lg:hidden z-50 w-14 h-14 flex items-center justify-center cursor-pointer group"
+        onClick={handleModal}
+      >
         <img
           src={NavOpen}
-          onClick={handleModal}
           alt={isOpen ? "Close menu" : "Open menu"}
-          className={`w-full h-auto object-contain cursor-pointer transition-all duration-300 ease-out active:scale-75
-            ${isOpen ? "rotate-90 brightness-90 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]" : ""}`}
+          /* Applies continuous pulse when closed. Transitions seamlessly to 
+            a stable 90-degree rotated drop-shadow state when opened.
+          */
+          className={`w-full h-auto object-contain transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
+            group-hover:scale-110 group-hover:brightness-110 group-active:scale-90
+            ${
+              isOpen
+                ? "rotate-90 brightness-90 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]"
+                : "nav-trigger-pulse"
+            }`}
         />
       </div>
 
-      {/* MODIFIED: Added animate__fast to the parent overlay entry/exit */}
       <ul
         onClick={handleModal}
         onAnimationEnd={handleAnimationEnd}
@@ -122,7 +148,6 @@ function NavBar() {
           ${isOpen ? "bg-gradient-to-r from-black/90 via-red-950/90 to-amber-950/90 backdrop-blur-xl" : "bg-transparent"}`}
       >
         {/* Logo Left Container */}
-        {/* MODIFIED: Tightened animationDelay from 100ms to 40ms */}
         <li
           className={`w-full lg:w-[320px] lg:flex-initial text-center lg:relative lg:h-32 lg:flex lg:items-center lg:justify-center py-4 shrink-0 ${getMobileStaggerClass()}`}
           style={{ animationDelay: isOpen ? "40ms" : "0ms" }}
@@ -143,7 +168,6 @@ function NavBar() {
         {/* Buttons Center Container */}
         <li className="w-full flex flex-col items-center justify-center gap-5 pb-12 lg:flex-row lg:flex-1 lg:justify-center lg:gap-3 xl:gap-5 lg:w-auto lg:pb-0 flex-wrap max-w-xl lg:max-w-none">
           {/* Home Button */}
-          {/* MODIFIED: Tightened animationDelay from 250ms to 100ms */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/").container} ${getMobileStaggerClass()}`}
@@ -159,7 +183,6 @@ function NavBar() {
           </div>
 
           {/* About Us Button */}
-          {/* MODIFIED: Tightened animationDelay from 400ms to 160ms */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/about").container} ${getMobileStaggerClass()}`}
@@ -175,7 +198,6 @@ function NavBar() {
           </div>
 
           {/* Contact Us Button */}
-          {/* MODIFIED: Tightened animationDelay from 550ms to 220ms */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/contact").container} ${getMobileStaggerClass()}`}
@@ -191,7 +213,6 @@ function NavBar() {
           </div>
 
           {/* Services Button */}
-          {/* MODIFIED: Tightened animationDelay from 700ms to 280ms */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/services").container} ${getMobileStaggerClass()}`}
@@ -207,7 +228,6 @@ function NavBar() {
           </div>
 
           {/* Insurance Button */}
-          {/* MODIFIED: Tightened animationDelay from 850ms to 340ms */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/insurance").container} ${getMobileStaggerClass()}`}
@@ -224,7 +244,6 @@ function NavBar() {
         </li>
 
         {/* Call Us Button */}
-        {/* MODIFIED: Tightened animationDelay from 1000ms to 400ms */}
         <li
           className={`w-full flex justify-center -mt-2 pb-12 lg:hidden shrink-0 ${getMobileStaggerClass()}`}
           style={{ animationDelay: isOpen ? "400ms" : "0ms" }}
@@ -237,7 +256,7 @@ function NavBar() {
             <img
               src={CallUs}
               alt="Button to call Barneys Supply"
-              className="w-full h-full object-contain block mx-auto"
+              className="w-full h-auto object-contain block mx-auto"
             />
           </a>
         </li>
