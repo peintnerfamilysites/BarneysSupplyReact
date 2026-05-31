@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import NavOpen from "../../assets/nav-open.png";
 import MainSitesLogo from "../../assets/main-sites-logo.png";
+import CallUs from "../../assets/call-us.png";
+import ContactUs from "../../assets/contact-us.png";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -71,9 +73,8 @@ function NavBar() {
   const getButtonConfig = path => {
     const isActive = location.pathname === path;
 
-    // ADJUSTED: Changed mobile base width to w-72 and pushed maximum desktop width up to max-w-[240px]
     const baseContainer =
-      "cursor-pointer font-semibold text-center w-72 lg:w-auto lg:flex-1 max-w-[240px] rounded-xl border transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hover:-translate-y-0.5 shrink-0";
+      "cursor-pointer font-semibold text-center w-72 lg:w-auto lg:flex-1 max-w-[240px] rounded-xl border transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hover:-translate-y-0.5 active:scale-95 active:brightness-90 shrink-0";
     const baseLink =
       "block w-full h-full py-3.5 lg:py-2 px-2 text-sm tracking-wide transition-colors duration-300";
 
@@ -90,29 +91,42 @@ function NavBar() {
     }
   };
 
+  // MODIFIED: Added animate__fast to make the inner item transitions snappier
+  const getMobileStaggerClass = () => {
+    return !isDesktop && isOpen
+      ? "animate__animated animate__fadeInUp animate__fast"
+      : "";
+  };
+
   return (
     <nav className="navbar absolute lg:static lg:flex lg:justify-between lg:items-center w-full mx-auto h-full lg:h-auto bg-transparent lg:bg-gradient-to-r lg:from-black lg:via-red-950 lg:to-amber-950 lg:px-6">
       <div className="fixed top-1/2 -translate-y-1/2 right-1 md:right-5 lg:hidden z-50 w-12 h-12 flex items-center justify-center">
         <img
           src={NavOpen}
           onClick={handleModal}
-          alt="Open menu"
-          className="w-full h-auto object-contain cursor-pointer"
+          alt={isOpen ? "Close menu" : "Open menu"}
+          className={`w-full h-auto object-contain cursor-pointer transition-all duration-300 ease-out active:scale-75
+            ${isOpen ? "rotate-90 brightness-90 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]" : ""}`}
         />
       </div>
 
+      {/* MODIFIED: Added animate__fast to the parent overlay entry/exit */}
       <ul
         onClick={handleModal}
         onAnimationEnd={handleAnimationEnd}
         className={`nav-links w-full h-full fixed inset-0 lg:static flex flex-col items-center justify-start gap-4 text-2xl pt-24 pb-12 overflow-y-auto lg:overflow-visible lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:pb-0 lg:pt-0 lg:h-auto lg:text-xl lg:w-full 
-          ${!isDesktop ? "animate__animated" : ""} 
+          ${!isDesktop ? "animate__animated animate__fast" : ""} 
           ${isOpen ? "flex" : "hidden"} 
           ${!isDesktop && isAnimatingOut ? "animate__fadeOutUp" : ""} 
           ${!isDesktop && !isAnimatingOut ? "animate__fadeInDown" : ""} 
-          ${isOpen ? "bg-gradient-to-r from-black via-red-950 to-amber-950" : "bg-transparent"}`}
+          ${isOpen ? "bg-gradient-to-r from-black/90 via-red-950/90 to-amber-950/90 backdrop-blur-xl" : "bg-transparent"}`}
       >
         {/* Logo Left Container */}
-        <li className="w-full lg:w-[320px] lg:flex-initial text-center lg:relative lg:h-32 lg:flex lg:items-center lg:justify-center py-4 shrink-0">
+        {/* MODIFIED: Tightened animationDelay from 100ms to 40ms */}
+        <li
+          className={`w-full lg:w-[320px] lg:flex-initial text-center lg:relative lg:h-32 lg:flex lg:items-center lg:justify-center py-4 shrink-0 ${getMobileStaggerClass()}`}
+          style={{ animationDelay: isOpen ? "40ms" : "0ms" }}
+        >
           <Link
             to="/"
             onClick={e => handleNavLinkClick(e, "/")}
@@ -129,9 +143,11 @@ function NavBar() {
         {/* Buttons Center Container */}
         <li className="w-full flex flex-col items-center justify-center gap-5 pb-12 lg:flex-row lg:flex-1 lg:justify-center lg:gap-3 xl:gap-5 lg:w-auto lg:pb-0 flex-wrap max-w-xl lg:max-w-none">
           {/* Home Button */}
+          {/* MODIFIED: Tightened animationDelay from 250ms to 100ms */}
           <div
             onClick={e => e.stopPropagation()}
-            className={getButtonConfig("/").container}
+            className={`${getButtonConfig("/").container} ${getMobileStaggerClass()}`}
+            style={{ animationDelay: isOpen ? "100ms" : "0ms" }}
           >
             <Link
               to="/"
@@ -143,9 +159,11 @@ function NavBar() {
           </div>
 
           {/* About Us Button */}
+          {/* MODIFIED: Tightened animationDelay from 400ms to 160ms */}
           <div
             onClick={e => e.stopPropagation()}
-            className={getButtonConfig("/about").container}
+            className={`${getButtonConfig("/about").container} ${getMobileStaggerClass()}`}
+            style={{ animationDelay: isOpen ? "160ms" : "0ms" }}
           >
             <Link
               to="/about"
@@ -157,9 +175,11 @@ function NavBar() {
           </div>
 
           {/* Contact Us Button */}
+          {/* MODIFIED: Tightened animationDelay from 550ms to 220ms */}
           <div
             onClick={e => e.stopPropagation()}
-            className={getButtonConfig("/contact").container}
+            className={`${getButtonConfig("/contact").container} ${getMobileStaggerClass()}`}
+            style={{ animationDelay: isOpen ? "220ms" : "0ms" }}
           >
             <Link
               to="/contact"
@@ -171,9 +191,11 @@ function NavBar() {
           </div>
 
           {/* Services Button */}
+          {/* MODIFIED: Tightened animationDelay from 700ms to 280ms */}
           <div
             onClick={e => e.stopPropagation()}
-            className={getButtonConfig("/services").container}
+            className={`${getButtonConfig("/services").container} ${getMobileStaggerClass()}`}
+            style={{ animationDelay: isOpen ? "280ms" : "0ms" }}
           >
             <Link
               to="/services"
@@ -185,9 +207,11 @@ function NavBar() {
           </div>
 
           {/* Insurance Button */}
+          {/* MODIFIED: Tightened animationDelay from 850ms to 340ms */}
           <div
             onClick={e => e.stopPropagation()}
-            className={getButtonConfig("/insurance").container}
+            className={`${getButtonConfig("/insurance").container} ${getMobileStaggerClass()}`}
+            style={{ animationDelay: isOpen ? "340ms" : "0ms" }}
           >
             <Link
               to="/insurance"
@@ -199,7 +223,39 @@ function NavBar() {
           </div>
         </li>
 
-        <li className="hidden lg:block lg:flex-initial lg:w-[320px]"></li>
+        {/* Call Us Button */}
+        {/* MODIFIED: Tightened animationDelay from 1000ms to 400ms */}
+        <li
+          className={`w-full flex justify-center -mt-2 pb-12 lg:hidden shrink-0 ${getMobileStaggerClass()}`}
+          style={{ animationDelay: isOpen ? "400ms" : "0ms" }}
+        >
+          <a
+            href="tel:+19034177043"
+            onClick={e => e.stopPropagation()}
+            className="inline-block transition-transform active:scale-90 duration-150 w-36 max-w-[120px]"
+          >
+            <img
+              src={CallUs}
+              alt="Button to call Barneys Supply"
+              className="w-full h-full object-contain block mx-auto"
+            />
+          </a>
+        </li>
+
+        {/* Desktop Contact Button Right Container */}
+        <li className="hidden lg:flex lg:w-[220px] lg:flex-initial lg:h-32 lg:items-center lg:justify-end lg:pr-10 shrink-0">
+          <Link
+            to="/contact"
+            onClick={e => e.stopPropagation()}
+            className="inline-block group transition-all duration-300 hover:-translate-y-0.5"
+          >
+            <img
+              src={ContactUs}
+              alt="Contact Us Button"
+              className="h-14 w-auto object-contain block scale-[3.0] transition-all duration-300 group-hover:brightness-125"
+            />
+          </Link>
+        </li>
       </ul>
     </nav>
   );
