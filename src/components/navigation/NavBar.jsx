@@ -140,12 +140,13 @@ function NavBar() {
       <ul
         onClick={handleModal}
         onAnimationEnd={handleAnimationEnd}
-        className={`nav-links w-full h-full fixed inset-0 lg:static flex flex-col items-center justify-start gap-4 text-2xl pt-24 pb-12 overflow-y-auto lg:overflow-visible lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:pb-0 lg:pt-0 lg:h-auto lg:text-xl lg:w-full 
-          ${!isDesktop ? "animate__animated animate__fast" : ""} 
-          ${isOpen ? "flex" : "hidden"} 
-          ${!isDesktop && isAnimatingOut ? "animate__fadeOutUp" : ""} 
-          ${!isDesktop && !isAnimatingOut ? "animate__fadeInDown" : ""} 
-          ${isOpen ? "bg-gradient-to-r from-black/90 via-red-950/90 to-amber-950/90 backdrop-blur-xl" : "bg-transparent"}`}
+        /* FIXED: Swapped h-full with h-[100dvh] to stop the mobile URL bar resize glitch */
+        className={`nav-links w-full h-[100dvh] fixed inset-0 lg:static flex flex-col items-center justify-start gap-4 text-2xl pt-24 pb-12 overflow-y-auto lg:overflow-visible lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:pb-0 lg:pt-0 lg:h-auto lg:text-xl lg:w-full 
+        ${!isDesktop ? "animate__animated animate__fast" : ""} 
+        ${isOpen ? "flex" : "hidden"} 
+        ${!isDesktop && isAnimatingOut ? "animate__fadeOutUp" : ""} 
+        ${!isDesktop && !isAnimatingOut ? "animate__fadeInDown" : ""} 
+        ${isOpen ? "bg-gradient-to-r from-black/90 via-red-950/90 to-amber-950/90 backdrop-blur-xl" : "bg-transparent"}`}
       >
         {/* Logo Left Container */}
         <li
