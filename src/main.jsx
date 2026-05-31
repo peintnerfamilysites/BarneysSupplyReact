@@ -10,32 +10,37 @@ import Error from "./pages/error/Error.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Define the routes for the application
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/about",
+      element: <About />,
+    },
+    {
+      path: "/contact",
+      element: <Contact />,
+    },
+    {
+      path: "/services",
+      element: <Services />,
+    },
+    {
+      path: "/insurance",
+      element: <Insurance />,
+    },
+    {
+      path: "*",
+      element: <Error />,
+    },
+  ],
   {
-    path: "/",
-    element: <Home />,
+    basename: "/BarneysSupplyReact",
   },
-  {
-    path: "/about",
-    element: <About />,
-  },
-  {
-    path: "/contact",
-    element: <Contact />,
-  },
-  {
-    path: "/services",
-    element: <Services />,
-  },
-  {
-    path: "/insurance",
-    element: <Insurance />,
-  },
-  {
-    path: "*",
-    element: <Error />,
-  },
-]);
+);
 
 // Render the application using the router
 createRoot(document.getElementById("root")).render(
