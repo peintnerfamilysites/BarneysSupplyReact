@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser"; // 1. Import EmailJS
 import NavBar from "../../components/navigation/NavBar";
 import PhoneNumbers from "../../assets/phone-numbers.webp";
 import Established from "../../assets/established.webp";
@@ -30,9 +31,54 @@ function Contact() {
     message: "",
   });
 
-  const handleSubmit = e => {
+  // UI Status tracking states
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+
+  // 2. The EmailJS form submission logic
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log("Submitting Estimate Request:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    // Dynamic environment variable resolution (Works for Vite or CRA)
+    const serviceId =
+      import.meta.env?.VITE_EMAILJS_SERVICE_ID ||
+      process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const templateId =
+      import.meta.env?.VITE_EMAILJS_TEMPLATE_ID ||
+      process.env.REACT_APP_TEMPLATE_ID;
+    const publicKey =
+      import.meta.env?.VITE_EMAILJS_PUBLIC_KEY ||
+      process.env.REACT_APP_PUBLIC_KEY;
+
+    // Mapping your state data to match your EmailJS Template variable slots
+    const templateParams = {
+      from_name: formData.name,
+      from_phone: formData.phone,
+      from_email: formData.email,
+      service_requested: formData.serviceNeeded,
+      message: formData.message,
+    };
+
+    try {
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      setSubmitStatus("success");
+      // Reset form upon successful delivery
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        serviceNeeded: "General Inquiry",
+        message: "",
+      });
+    } catch (error) {
+      console.error("EmailJS Submission Failure:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = e => {
@@ -203,6 +249,20 @@ function Contact() {
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-5">
+                {/* 3. Action Notification Banners */}
+                {submitStatus === "success" && (
+                  <div className="p-4 bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 text-sm rounded-lg font-medium">
+                    ✓ Estimate request submitted successfully! Our team will
+                    call you shortly.
+                  </div>
+                )}
+                {submitStatus === "error" && (
+                  <div className="p-4 bg-red-950/80 text-red-400 border border-red-500/30 text-sm rounded-lg font-medium">
+                    ✕ Something went wrong sending your message. Please try
+                    calling our main office directly.
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-zinc-400 text-xs font-bold uppercase mb-2 tracking-wide">
@@ -284,11 +344,19 @@ function Contact() {
                   ></textarea>
                 </div>
 
+                {/* 4. Disable and swap text dynamically when loading */}
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-red-700 to-red-800 border border-yellow-400/30 font-bold tracking-wide uppercase text-sm text-white py-3.5 rounded-lg transition-all shadow-md active:scale-[0.98] hover:from-yellow-300 hover:to-amber-300 hover:text-red-950 hover:border-yellow-400"
+                  disabled={isSubmitting}
+                  className={`w-full bg-gradient-to-r from-red-700 to-red-800 border border-yellow-400/30 font-bold tracking-wide uppercase text-sm text-white py-3.5 rounded-lg transition-all shadow-md active:scale-[0.98] ${
+                    isSubmitting
+                      ? "opacity-60 cursor-not-allowed"
+                      : "hover:from-yellow-300 hover:to-amber-300 hover:text-red-950 hover:border-yellow-400"
+                  }`}
                 >
-                  Send Estimate Request
+                  {isSubmitting
+                    ? "Sending Request..."
+                    : "Send Estimate Request"}
                 </button>
               </form>
             </div>
