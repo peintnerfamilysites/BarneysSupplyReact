@@ -16,6 +16,8 @@ const router = createBrowserRouter(
     {
       // Parent route wrapping the entire application layout
       element: <Layout />,
+      // This catches core code failures/crashes globally
+      errorElement: <Error />,
       children: [
         {
           path: "/",

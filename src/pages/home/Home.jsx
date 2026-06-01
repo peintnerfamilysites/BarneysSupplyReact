@@ -85,11 +85,16 @@ function Home() {
         <div className="w-full flex flex-col items-center">
           {/* 1. Contact Us Banner (Shows 1st on mobile, hidden on desktop) */}
           <div className="block md:hidden h-45 w-full flex items-center justify-center order-1">
-            <img
-              src={ContactUs}
-              className="w-full h-full object-cover scale-90 cursor-pointer"
-              alt="Contact Us button"
-            />
+            <Link
+              to="/contact"
+              className="w-full h-full flex items-center justify-center"
+            >
+              <img
+                src={ContactUs}
+                className="w-full h-full object-cover scale-90 cursor-pointer"
+                alt="Contact Us button"
+              />
+            </Link>
           </div>
 
           {/* 2. SEO Headline Section (Shows 2nd on mobile, 1st on desktop) */}
@@ -326,13 +331,15 @@ function Home() {
               </div>
             </div>
 
-            {/* Email Us - HOVER ANIMATION MAINTAINED */}
+            {/* Email Us - WRAPPED IN ROUTER LINK TO CONTACT PAGE */}
             <div className="w-[35%] max-w-[440px] relative">
-              <img
-                src={EmailUs}
-                className={`${baseFooterImageClass} hover:scale-[1.04] hover:md:drop-shadow-[0_6px_25px_rgba(234,179,8,0.7)]`}
-                alt="Email Barneys Supply for a free exterior construction estimate"
-              />
+              <Link to="/contact" className="block w-full h-full">
+                <img
+                  src={EmailUs}
+                  className={`${baseFooterImageClass} hover:scale-[1.04] hover:md:drop-shadow-[0_6px_25px_rgba(234,179,8,0.7)]`}
+                  alt="Email Barneys Supply for a free exterior construction estimate"
+                />
+              </Link>
               <div className="sr-only">
                 <p>
                   Send an email to request a free quote on roofing repairs,
