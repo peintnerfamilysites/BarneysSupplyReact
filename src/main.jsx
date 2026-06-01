@@ -8,33 +8,40 @@ import Services from "./pages/services/Services.jsx";
 import Insurance from "./pages/insurance/Insurance.jsx";
 import Error from "./pages/error/Error.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./components/layout/Layout.jsx";
 
 // Define the routes for the application
 const router = createBrowserRouter(
   [
     {
-      path: "/",
-      element: <Home />,
-    },
-    {
-      path: "/about",
-      element: <About />,
-    },
-    {
-      path: "/contact",
-      element: <Contact />,
-    },
-    {
-      path: "/services",
-      element: <Services />,
-    },
-    {
-      path: "/insurance",
-      element: <Insurance />,
-    },
-    {
-      path: "*",
-      element: <Error />,
+      // Parent route wrapping the entire application layout
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/about",
+          element: <About />,
+        },
+        {
+          path: "/contact",
+          element: <Contact />,
+        },
+        {
+          path: "/services",
+          element: <Services />,
+        },
+        {
+          path: "/insurance",
+          element: <Insurance />,
+        },
+        {
+          path: "*",
+          element: <Error />,
+        },
+      ],
     },
   ],
   {
