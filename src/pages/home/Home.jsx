@@ -125,7 +125,7 @@ function Home() {
             />
           </Link>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-[96vw]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-2 w-full max-w-[96vw]">
             <div className="flex flex-col md:block relative group overflow-hidden rounded-xl bg-zinc-900 md:bg-zinc-950 border border-zinc-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
               <div className="relative w-full">
                 <img
@@ -264,7 +264,8 @@ function Home() {
             </div>
           </div>
 
-          <div className="block md:hidden max-w-[160px] w-full mx-auto mt-6">
+          {/* CHANGED: Brought the mobile call button margin completely down to mt-0 */}
+          <div className="block md:hidden max-w-[160px] w-full mx-auto mt-0">
             <a href="tel:19034177043">
               <img
                 src={CallUs}
@@ -274,7 +275,8 @@ function Home() {
             </a>
           </div>
 
-          <div className="hidden md:flex items-center justify-between mt-8 w-full max-w-[96vw] px-4 md:px-6 lg:px-12">
+          {/* CHANGED: Shifted from md:-mt-4 to md:-mt-16 to aggressively eliminate the desktop gap entirely */}
+          <div className="hidden md:flex items-center justify-between mt-0 md:-mt-16 w-full max-w-[96vw] px-4 md:px-6 lg:px-12">
             <div className="w-1/4 max-w-[280px] relative">
               <img
                 src={PhoneNumbers}
@@ -332,7 +334,7 @@ function Home() {
           <div className="w-full flex justify-center md:justify-end md:pr-12 mt-4 md:mt-0">
             <img
               src={PfsFooter}
-              className="w-2/5 md:w-1/4 h-auto object-contain cursor-pointer transition-all duration-300 scale-100 hover:scale-[1.04] filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+              className="w-2/5 md:w-1/6 h-auto object-contain cursor-pointer transition-all duration-300 scale-100 hover:scale-[1.04] filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
               alt="PFS Footer image"
             />
           </div>
