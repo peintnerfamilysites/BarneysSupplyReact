@@ -25,6 +25,14 @@ function Home() {
     cursor-pointer
   `.trim();
 
+  // Reusable card wrapper class that implements the Black -> Red -> Yellow gradient border trick
+  const gradientCardBorderClass = `
+    flex flex-col md:block relative group overflow-hidden rounded-xl 
+    bg-gradient-to-r from-black via-red-600 to-yellow-500 p-[1px]
+    shadow-lg transition-all duration-300 hover:scale-[1.02] 
+    hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]
+  `.trim();
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "RoofingContractor",
@@ -126,145 +134,158 @@ function Home() {
           </Link>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-2 w-full max-w-[96vw]">
-            <div className="flex flex-col md:block relative group overflow-hidden rounded-xl bg-zinc-900 md:bg-zinc-950 border border-zinc-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
-              <div className="relative w-full">
-                <img
-                  src={ShingleRoofing}
-                  alt="Shingle Roofing"
-                  className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
-                />
-                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-              </div>
-
-              <div className="p-4 bg-zinc-900 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
-                <div className="text-red-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    />
-                  </svg>
+            {/* Card 1: Shingle Roofing */}
+            <div className={gradientCardBorderClass}>
+              <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative">
+                <div className="relative w-full">
+                  <img
+                    src={ShingleRoofing}
+                    alt="Shingle Roofing"
+                    className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                  />
+                  <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 </div>
-                <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  Shingle Roofing
-                </h3>
-                <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
-                  Expert installation, architectural shingles, and leak repairs.
-                </p>
+
+                <div className="p-4 bg-zinc-950 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
+                  <div className="text-red-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    Shingle Roofing
+                  </h3>
+                  <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                    Expert installation, architectural shingles, and leak
+                    repairs.
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="flex flex-col md:block relative group overflow-hidden rounded-xl bg-zinc-900 md:bg-zinc-950 border border-zinc-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(234,179,8,0.3)]">
-              <div className="relative w-full">
-                <img
-                  src={VinylSiding}
-                  alt="Vinyl Siding"
-                  className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
-                />
-                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-              </div>
-              <div className="p-4 bg-zinc-900 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
-                <div className="text-amber-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0V11m0 0h4m-4 0m4 0v10m-4-10a1 1 0 011-1h2a1 1 0 011 1m-4 6h4"
-                    />
-                  </svg>
+            {/* Card 2: Vinyl Siding */}
+            <div className={gradientCardBorderClass}>
+              <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative">
+                <div className="relative w-full">
+                  <img
+                    src={VinylSiding}
+                    alt="Vinyl Siding"
+                    className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                  />
+                  <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 </div>
-                <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  Vinyl Siding
-                </h3>
-                <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
-                  Durable, weather-resistant siding styles to protect your home.
-                </p>
+                <div className="p-4 bg-zinc-950 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
+                  <div className="text-amber-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0V11m0 0h4m-4 0m4 0v10m-4-10a1 1 0 011-1h2a1 1 0 011 1m-4 6h4"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    Vinyl Siding
+                  </h3>
+                  <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                    Durable, weather-resistant siding styles to protect your
+                    home.
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="flex flex-col md:block relative group overflow-hidden rounded-xl bg-zinc-900 md:bg-zinc-950 border border-zinc-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
-              <div className="relative w-full">
-                <img
-                  src={Gutters}
-                  alt="Seamless Gutters"
-                  className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
-                />
-                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-              </div>
-              <div className="p-4 bg-zinc-900 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
-                <div className="text-red-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                    />
-                  </svg>
+            {/* Card 3: Seamless Gutters */}
+            <div className={gradientCardBorderClass}>
+              <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative">
+                <div className="relative w-full">
+                  <img
+                    src={Gutters}
+                    alt="Seamless Gutters"
+                    className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                  />
+                  <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 </div>
-                <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  Seamless Gutters
-                </h3>
-                <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
-                  Custom downspouts and gutter guard protection systems.
-                </p>
+                <div className="p-4 bg-zinc-950 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
+                  <div className="text-red-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    Seamless Gutters
+                  </h3>
+                  <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                    Custom downspouts and gutter guard protection systems.
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="flex flex-col md:block relative group overflow-hidden rounded-xl bg-zinc-900 md:bg-zinc-950 border border-zinc-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(234,179,8,0.3)]">
-              <div className="relative w-full">
-                <img
-                  src={GarageDoors}
-                  alt="Garage Doors"
-                  className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
-                />
-                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-              </div>
-              <div className="p-4 bg-zinc-900 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
-                <div className="text-amber-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-                    />
-                  </svg>
+            {/* Card 4: Garage Doors */}
+            <div className={gradientCardBorderClass}>
+              <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative">
+                <div className="relative w-full">
+                  <img
+                    src={GarageDoors}
+                    alt="Garage Doors"
+                    className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                  />
+                  <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 </div>
-                <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  Garage Doors
-                </h3>
-                <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
-                  Insulated garage doors, spring repairs, and opener setups.
-                </p>
+                <div className="p-4 bg-zinc-950 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
+                  <div className="text-amber-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    Garage Doors
+                  </h3>
+                  <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                    Insulated garage doors, spring repairs, and opener setups.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* CHANGED: Brought the mobile call button margin completely down to mt-0 */}
           <div className="block md:hidden max-w-[160px] w-full mx-auto mt-0">
             <a href="tel:19034177043">
               <img
@@ -275,7 +296,6 @@ function Home() {
             </a>
           </div>
 
-          {/* CHANGED: Shifted from md:-mt-4 to md:-mt-16 to aggressively eliminate the desktop gap entirely */}
           <div className="hidden md:flex items-center justify-between mt-0 md:-mt-16 w-full max-w-[96vw] px-4 md:px-6 lg:px-12">
             <div className="w-1/4 max-w-[280px] relative">
               <img
@@ -334,7 +354,7 @@ function Home() {
           <div className="w-full flex justify-center md:justify-end md:pr-12 mt-4 md:mt-0">
             <img
               src={PfsFooter}
-              className="w-2/5 md:w-1/6 h-auto object-contain cursor-pointer transition-all duration-300 scale-100 hover:scale-[1.04] filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+              className="w-2/5 md:w-1/4 h-auto object-contain cursor-pointer transition-all duration-300 scale-100 hover:scale-[1.04] filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
               alt="PFS Footer image"
             />
           </div>
