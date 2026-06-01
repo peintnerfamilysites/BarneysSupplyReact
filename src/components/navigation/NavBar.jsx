@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import NavOpen from "../../assets/nav-open.png";
-import MainSitesLogo from "../../assets/main-sites-logo.png";
-import CallUs from "../../assets/call-us.png";
-import ContactUs from "../../assets/contact-us.png";
+import NavOpen from "../../assets/nav-open.webp";
+import MainSitesLogo from "../../assets/main-sites-logo.webp";
+import CallUs from "../../assets/call-us.webp";
+import ContactUs from "../../assets/contact-us.webp";
 
 function NavBar() {
   const navigate = useNavigate();
