@@ -16,22 +16,25 @@ import EmailUs from "../../assets/email-us.webp";
 import PfsFooter from "../../assets/pfs-footer.webp";
 
 function Home() {
+  // Shared base styles for the three core footer graphics
   const baseFooterImageClass = `
     h-auto object-contain 
     transition-all duration-300
     md:drop-shadow-[0_6px_12px_rgba(239,68,68,0.35)] 
-    hover:scale-[1.04] 
-    hover:md:drop-shadow-[0_6px_25px_rgba(234,179,8,0.7)]
     cursor-pointer
   `.trim();
 
-  // Reusable card wrapper class that implements the Black -> Red -> Yellow gradient border trick
-  const gradientCardBorderClass = `
+  // Reusable card outer border layout
+  const cardOuterBorderClass = `
     flex flex-col md:block relative group overflow-hidden rounded-xl 
     bg-gradient-to-r from-black via-red-600 to-yellow-500 p-[1px]
     shadow-lg transition-all duration-300 hover:scale-[1.02] 
     hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]
   `.trim();
+
+  // Reusable card inner block content styling
+  const cardInnerContainerClass =
+    "w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative";
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -81,7 +84,7 @@ function Home() {
         {/* Mobile Header Order Controller */}
         <div className="w-full flex flex-col items-center">
           {/* 1. Contact Us Banner (Shows 1st on mobile, hidden on desktop) */}
-          <div className="block md:hidden h-45 w-full flex items-center justify-center order-1 animate-fade-in-up">
+          <div className="block md:hidden h-45 w-full flex items-center justify-center order-1">
             <img
               src={ContactUs}
               className="w-full h-full object-cover scale-90 cursor-pointer"
@@ -89,8 +92,8 @@ function Home() {
             />
           </div>
 
-          {/* 2. SEO Headline Section (Shows 2nd on mobile, 1st on desktop with clean margin space below) */}
-          <div className="text-center mt-4 md:mt-6 mb-6 md:mb-12 max-w-2xl mx-auto px-4 order-2 md:order-first animate-fade-in-up">
+          {/* 2. SEO Headline Section (Shows 2nd on mobile, 1st on desktop) */}
+          <div className="text-center mt-4 md:mt-6 mb-6 md:mb-12 max-w-2xl mx-auto px-4 order-2 md:order-first">
             <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
               Premier Exterior Construction Services in{" "}
               <span className="text-red-500">the Ozarks</span>
@@ -103,7 +106,8 @@ function Home() {
           </div>
         </div>
 
-        <div className="w-full flex flex-col gap-1 md:flex-row md:justify-center md:flex-wrap md:gap-x-4 md:gap-y-4 lg:gap-x-8 md:max-w-[96vw] animate-fade-in-up">
+        {/* Top 3 Graphic Banner Blocks */}
+        <div className="w-full flex flex-col gap-1 md:flex-row md:justify-center md:flex-wrap md:gap-x-4 md:gap-y-4 lg:gap-x-8 md:max-w-[96vw]">
           <img
             src={SpringTime}
             className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 cursor-pointer md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
@@ -121,6 +125,7 @@ function Home() {
           />
         </div>
 
+        {/* Lower Main Content and Services Area */}
         <div className="text-white w-full flex flex-col items-center mt-4 px-4 animate-fade-in-up">
           <Link to="/services" className="w-full flex justify-center">
             <img
@@ -135,8 +140,8 @@ function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-2 w-full max-w-[96vw]">
             {/* Card 1: Shingle Roofing */}
-            <div className={gradientCardBorderClass}>
-              <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative">
+            <div className={cardOuterBorderClass}>
+              <div className={cardInnerContainerClass}>
                 <div className="relative w-full">
                   <img
                     src={ShingleRoofing}
@@ -145,7 +150,6 @@ function Home() {
                   />
                   <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 </div>
-
                 <div className="p-4 bg-zinc-950 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
                   <div className="text-red-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
                     <svg
@@ -174,8 +178,8 @@ function Home() {
             </div>
 
             {/* Card 2: Vinyl Siding */}
-            <div className={gradientCardBorderClass}>
-              <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative">
+            <div className={cardOuterBorderClass}>
+              <div className={cardInnerContainerClass}>
                 <div className="relative w-full">
                   <img
                     src={VinylSiding}
@@ -212,8 +216,8 @@ function Home() {
             </div>
 
             {/* Card 3: Seamless Gutters */}
-            <div className={gradientCardBorderClass}>
-              <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative">
+            <div className={cardOuterBorderClass}>
+              <div className={cardInnerContainerClass}>
                 <div className="relative w-full">
                   <img
                     src={Gutters}
@@ -249,8 +253,8 @@ function Home() {
             </div>
 
             {/* Card 4: Garage Doors */}
-            <div className={gradientCardBorderClass}>
-              <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative">
+            <div className={cardOuterBorderClass}>
+              <div className={cardInnerContainerClass}>
                 <div className="relative w-full">
                   <img
                     src={GarageDoors}
@@ -296,7 +300,9 @@ function Home() {
             </a>
           </div>
 
+          {/* Desktop Footer Section with Targeted Hover Configurations */}
           <div className="hidden md:flex items-center justify-between mt-0 md:-mt-16 w-full max-w-[96vw] px-4 md:px-6 lg:px-12">
+            {/* Call Us - HOVER REMOVED */}
             <div className="w-1/4 max-w-[280px] relative">
               <img
                 src={PhoneNumbers}
@@ -320,10 +326,11 @@ function Home() {
               </div>
             </div>
 
+            {/* Email Us - HOVER ANIMATION MAINTAINED */}
             <div className="w-[35%] max-w-[440px] relative">
               <img
                 src={EmailUs}
-                className={baseFooterImageClass}
+                className={`${baseFooterImageClass} hover:scale-[1.04] hover:md:drop-shadow-[0_6px_25px_rgba(234,179,8,0.7)]`}
                 alt="Email Barneys Supply for a free exterior construction estimate"
               />
               <div className="sr-only">
@@ -335,6 +342,7 @@ function Home() {
               </div>
             </div>
 
+            {/* Established in 1944 - HOVER REMOVED */}
             <div className="w-[35%] max-w-[440px] relative">
               <img
                 src={Established}
@@ -351,10 +359,10 @@ function Home() {
             </div>
           </div>
 
-          <div className="w-full flex justify-center md:justify-end md:pr-12 mt-4 md:mt-0">
+          <div className="w-full flex justify-center md:justify-end md:pr-12 mt-0 md:-mt-8">
             <img
               src={PfsFooter}
-              className="w-2/5 md:w-1/4 h-auto object-contain cursor-pointer transition-all duration-300 scale-100 hover:scale-[1.04] filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+              className="w-2/5 md:w-1/4 h-auto object-contain cursor-pointer transition-all duration-300 scale-75 hover:scale-100 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
               alt="PFS Footer image"
             />
           </div>
