@@ -16,9 +16,6 @@ import EmailUs from "../../assets/email-us.webp";
 import PfsFooter from "../../assets/pfs-footer.webp";
 
 function Home() {
-  const serviceWrapperClass =
-    "w-full md:w-[calc(33.33%-16px)] p-[2px] bg-gradient-to-r from-black via-red-500 to-yellow-500 md:bg-none md:p-0";
-
   const baseFooterImageClass = `
     h-auto object-contain 
     transition-all duration-300
@@ -28,8 +25,28 @@ function Home() {
     cursor-pointer
   `.trim();
 
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "RoofingContractor",
+    name: "Barneys Supply",
+    telephone: ["417-725-4153", "417-464-5794"],
+    email: "Barneynx44@gmail.com",
+    priceRange: "$$",
+    address: {
+      "@type": "PostalAddress",
+      addressRegion: "MO",
+      addressCountry: "US",
+    },
+    description:
+      "Barneys Supply provides professional shingle roofing, vinyl siding, seamless gutters, and garage door installations throughout the Ozarks.",
+  };
+
   return (
     <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen pb-4 md:pb-8">
+      <script type="application/ld+json">
+        {JSON.stringify(localBusinessSchema)}
+      </script>
+
       <style>
         {`
           @keyframes fluidFadeUp {
@@ -53,15 +70,31 @@ function Home() {
       <NavBar />
 
       <div className="flex flex-col items-center gap-1 pt-2 w-full">
-        <div className="block md:hidden h-45 w-full flex items-center justify-center animate-fade-in-up">
-          <img
-            src={ContactUs}
-            className="w-full h-full object-cover scale-90 cursor-pointer"
-            alt="Contact Us button"
-          />
+        {/* Mobile Header Order Controller */}
+        <div className="w-full flex flex-col items-center">
+          {/* 1. Contact Us Banner (Shows 1st on mobile, hidden on desktop) */}
+          <div className="block md:hidden h-45 w-full flex items-center justify-center order-1 animate-fade-in-up">
+            <img
+              src={ContactUs}
+              className="w-full h-full object-cover scale-90 cursor-pointer"
+              alt="Contact Us button"
+            />
+          </div>
+
+          {/* 2. SEO Headline Section (Shows 2nd on mobile, 1st on desktop with clean margin space below) */}
+          <div className="text-center mt-4 md:mt-6 mb-6 md:mb-12 max-w-2xl mx-auto px-4 order-2 md:order-first animate-fade-in-up">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+              Premier Exterior Construction Services in{" "}
+              <span className="text-red-500">the Ozarks</span>
+            </h1>
+            <p className="text-zinc-400 mt-2 text-sm md:text-base">
+              From reliable shingle roofing repairs to custom seamless gutter
+              systems, Barneys Supply has protected residential and commercial
+              properties since 1944.
+            </p>
+          </div>
         </div>
 
-        {/* Content chunks fade up smoothly together rather than piece-by-piece */}
         <div className="w-full flex flex-col gap-1 md:flex-row md:justify-center md:flex-wrap md:gap-x-4 md:gap-y-4 lg:gap-x-8 md:max-w-[96vw] animate-fade-in-up">
           <img
             src={SpringTime}
@@ -84,7 +117,7 @@ function Home() {
           <Link to="/services" className="w-full flex justify-center">
             <img
               src={ServicesOffered}
-              className="max-w-[60%] md:max-w-xs h-auto object-contain mb-2 transition-all duration-300 cursor-pointer 
+              className="max-w-[60%] md:max-w-xs h-auto object-contain mb-6 transition-all duration-300 cursor-pointer 
                 md:drop-shadow-[0_0_10px_rgba(239,68,68,0.5)] 
                 hover:scale-[1.02] 
                 hover:md:drop-shadow-[0_0_20px_rgba(234,179,8,0.8)]"
@@ -92,38 +125,146 @@ function Home() {
             />
           </Link>
 
-          <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4 w-full max-w-[96vw]">
-            <div className={serviceWrapperClass}>
-              <img
-                src={ShingleRoofing}
-                className="w-full h-auto object-contain transition-all duration-300 cursor-pointer md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
-                alt="shingle roofing service image"
-              />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-[96vw]">
+            <div className="flex flex-col md:block relative group overflow-hidden rounded-xl bg-zinc-900 md:bg-zinc-950 border border-zinc-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
+              <div className="relative w-full">
+                <img
+                  src={ShingleRoofing}
+                  alt="Shingle Roofing"
+                  className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                />
+                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              </div>
+
+              <div className="p-4 bg-zinc-900 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
+                <div className="text-red-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  Shingle Roofing
+                </h3>
+                <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                  Expert installation, architectural shingles, and leak repairs.
+                </p>
+              </div>
             </div>
-            <div className={serviceWrapperClass}>
-              <img
-                src={VinylSiding}
-                className="w-full h-auto object-contain transition-all duration-300 cursor-pointer md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
-                alt="vinyl siding service image"
-              />
+
+            <div className="flex flex-col md:block relative group overflow-hidden rounded-xl bg-zinc-900 md:bg-zinc-950 border border-zinc-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(234,179,8,0.3)]">
+              <div className="relative w-full">
+                <img
+                  src={VinylSiding}
+                  alt="Vinyl Siding"
+                  className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                />
+                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              </div>
+              <div className="p-4 bg-zinc-900 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
+                <div className="text-amber-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0V11m0 0h4m-4 0m4 0v10m-4-10a1 1 0 011-1h2a1 1 0 011 1m-4 6h4"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  Vinyl Siding
+                </h3>
+                <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                  Durable, weather-resistant siding styles to protect your home.
+                </p>
+              </div>
             </div>
-            <div className={serviceWrapperClass}>
-              <img
-                src={Gutters}
-                className="w-full h-auto object-contain transition-all duration-300 cursor-pointer md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
-                alt="gutters service image"
-              />
+
+            <div className="flex flex-col md:block relative group overflow-hidden rounded-xl bg-zinc-900 md:bg-zinc-950 border border-zinc-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]">
+              <div className="relative w-full">
+                <img
+                  src={Gutters}
+                  alt="Seamless Gutters"
+                  className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                />
+                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              </div>
+              <div className="p-4 bg-zinc-900 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
+                <div className="text-red-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  Seamless Gutters
+                </h3>
+                <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                  Custom downspouts and gutter guard protection systems.
+                </p>
+              </div>
             </div>
-            <div className={serviceWrapperClass}>
-              <img
-                src={GarageDoors}
-                className="w-full h-auto object-contain transition-all duration-300 cursor-pointer md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
-                alt="garage doors service image"
-              />
+
+            <div className="flex flex-col md:block relative group overflow-hidden rounded-xl bg-zinc-900 md:bg-zinc-950 border border-zinc-800 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(234,179,8,0.3)]">
+              <div className="relative w-full">
+                <img
+                  src={GarageDoors}
+                  alt="Garage Doors"
+                  className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                />
+                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              </div>
+              <div className="p-4 bg-zinc-900 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
+                <div className="text-amber-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M8 9l4-4 4 4m0 6l-4 4-4-4"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  Garage Doors
+                </h3>
+                <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                  Insulated garage doors, spring repairs, and opener setups.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="block md:hidden max-w-[160px] w-full mx-auto mt-4">
+          <div className="block md:hidden max-w-[160px] w-full mx-auto mt-6">
             <a href="tel:19034177043">
               <img
                 src={CallUs}
@@ -133,23 +274,59 @@ function Home() {
             </a>
           </div>
 
-          {/* Footers sit grounded and still until user actions occur */}
           <div className="hidden md:flex items-center justify-between mt-8 w-full max-w-[96vw] px-4 md:px-6 lg:px-12">
-            <img
-              src={PhoneNumbers}
-              className={`${baseFooterImageClass} w-1/4 max-w-[280px]`}
-              alt="Phone numbers"
-            />
-            <img
-              src={EmailUs}
-              className={`${baseFooterImageClass} w-[35%] max-w-[440px]`}
-              alt="Email us"
-            />
-            <img
-              src={Established}
-              className={`${baseFooterImageClass} w-[35%] max-w-[440px]`}
-              alt="Established status"
-            />
+            <div className="w-1/4 max-w-[280px] relative">
+              <img
+                src={PhoneNumbers}
+                className={baseFooterImageClass}
+                alt="Contact Barneys Supply - Call our team today"
+              />
+              <div className="sr-only">
+                <h2>Contact Barneys Supply</h2>
+                <p>
+                  Call our exterior construction experts for shingle roofing,
+                  vinyl siding, and seamless gutters.
+                </p>
+                <ul>
+                  <li>
+                    Main Office: <a href="tel:+14177254153">(417) 725-4153</a>
+                  </li>
+                  <li>
+                    Sales: <a href="tel:+14174645794">(417) 464-5794</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="w-[35%] max-w-[440px] relative">
+              <img
+                src={EmailUs}
+                className={baseFooterImageClass}
+                alt="Email Barneys Supply for a free exterior construction estimate"
+              />
+              <div className="sr-only">
+                <p>
+                  Send an email to request a free quote on roofing repairs,
+                  siding installations, or garage door services.
+                </p>
+                <a href="mailto:Barneynx44@gmail.com">Barneynx44@gmail.com</a>
+              </div>
+            </div>
+
+            <div className="w-[35%] max-w-[440px] relative">
+              <img
+                src={Established}
+                className={baseFooterImageClass}
+                alt="Barneys Supply - Established in 1944"
+              />
+              <div className="sr-only">
+                <p>
+                  Barneys Supply has been proudly serving our community with
+                  premier commercial and residential exterior construction
+                  solutions since 1944.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="w-full flex justify-center md:justify-end md:pr-12 mt-4 md:mt-0">
