@@ -98,7 +98,9 @@ function NavBar() {
   };
 
   return (
-    <nav className="navbar absolute lg:sticky lg:top-0 lg:flex lg:justify-between lg:items-center w-full mx-auto h-full lg:h-auto bg-transparent lg:bg-gradient-to-r lg:from-black lg:via-red-950 lg:to-amber-950 lg:px-6 z-40">
+    /* FIXED: Changed mobile height from h-full to h-auto so the navigation wrapper 
+       collapses and doesn't stretch across the entire page invisibly on mobile. */
+    <nav className="navbar absolute lg:sticky lg:top-0 lg:flex lg:justify-between lg:items-center w-full mx-auto h-auto bg-transparent lg:bg-gradient-to-r lg:from-black lg:via-red-950 lg:to-amber-950 lg:px-6 z-40">
       {/* Dynamic Keyframes to handle background/scale pulsing safely without layout interference */}
       <style>{`
         @keyframes customPulse {
@@ -124,9 +126,6 @@ function NavBar() {
         <img
           src={NavOpen}
           alt={isOpen ? "Close menu" : "Open menu"}
-          /* Applies continuous pulse when closed. Transitions seamlessly to 
-            a stable 90-degree rotated drop-shadow state when opened.
-          */
           className={`w-full h-auto object-contain transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
             group-hover:scale-110 group-hover:brightness-110 group-active:scale-90
             ${
@@ -140,10 +139,11 @@ function NavBar() {
       <ul
         onClick={handleModal}
         onAnimationEnd={handleAnimationEnd}
-        /* FIXED: Swapped h-full with h-[100dvh] to stop the mobile URL bar resize glitch */
-        className={`nav-links w-full h-[100dvh] fixed inset-0 lg:static flex flex-col items-center justify-start gap-4 text-2xl pt-24 pb-12 overflow-y-auto lg:overflow-visible lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:pb-0 lg:pt-0 lg:h-auto lg:text-xl lg:w-full 
+        /* FIXED: Enforced a strict 'hidden' logic flag on mobile when the drawer isn't open or actively animating out. 
+           This drops the overlay completely out of the viewport DOM touch registry so you can type freely underneath. */
+        className={`nav-links w-full h-[100dvh] fixed inset-0 lg:static flex-col items-center justify-start gap-4 text-2xl pt-24 pb-12 overflow-y-auto lg:overflow-visible lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:pb-0 lg:pt-0 lg:h-auto lg:text-xl lg:w-full 
         ${!isDesktop ? "animate__animated animate__fast" : ""} 
-        ${isOpen ? "flex" : "hidden"} 
+        ${isOpen || (!isDesktop && isAnimatingOut) ? "flex" : "hidden"} 
         ${!isDesktop && isAnimatingOut ? "animate__fadeOutUp" : ""} 
         ${!isDesktop && !isAnimatingOut ? "animate__fadeInDown" : ""} 
         ${isOpen ? "bg-gradient-to-r from-black/90 via-red-950/90 to-amber-950/90 backdrop-blur-xl" : "bg-transparent"}`}
