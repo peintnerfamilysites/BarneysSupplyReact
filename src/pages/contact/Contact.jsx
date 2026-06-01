@@ -58,10 +58,10 @@ function Contact() {
       <NavBar />
 
       <div className="flex flex-col items-center gap-1 pt-2 w-full animate-fade-in-up">
-        {/* NEW: Top Header Layout Section containing Text + Brand Asset side-columns on desktop */}
+        {/* Top Header Layout Section */}
         <div className="w-full max-w-[96vw] px-4 mt-6 md:mt-8 mb-6 md:mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Call Us Graphic Container - Flanks Left on Desktop */}
-          <div className="w-full md:w-1/4 flex justify-center order-2 md:order-1">
+          {/* Call Us Graphic Container - Hidden on mobile, Flanks Left on Desktop */}
+          <div className="hidden md:flex w-full md:w-1/4 justify-center order-2 md:order-1">
             <div className="relative w-full text-center">
               <img
                 src={PhoneNumbers}
@@ -94,8 +94,8 @@ function Contact() {
             </p>
           </div>
 
-          {/* Established 1944 Graphic Container - Flanks Right on Desktop */}
-          <div className="w-full md:w-1/4 flex justify-center order-3">
+          {/* Established 1944 Graphic Container - Hidden on mobile, Flanks Right on Desktop */}
+          <div className="hidden md:flex w-full md:w-1/4 justify-center order-3">
             <img
               src={Established}
               className={baseTopImageClass}
@@ -295,7 +295,16 @@ function Contact() {
           </div>
         </div>
 
-        {/* Footer Brand Logo Block - Bottom Graphics Row Removed */}
+        {/* Mobile-Only Established Section (Appears right above your footer on mobile screens) */}
+        <div className="flex md:hidden w-full justify-center mb-4 px-4">
+          <img
+            src={Established}
+            className="w-full max-w-[240px] h-auto object-contain cursor-pointer"
+            alt="Barneys Supply - Established in 1944"
+          />
+        </div>
+
+        {/* Footer Brand Logo Block */}
         <div className="w-full flex justify-center md:justify-end md:pr-12 mt-4 md:mt-0">
           <img
             src={PfsFooter}
