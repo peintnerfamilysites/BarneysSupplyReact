@@ -1,24 +1,46 @@
-import { Link } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 import NavBar from "../../components/navigation/NavBar";
 import PfsFooter from "../../assets/pfs-footer.webp";
 
 function Error() {
+  // Capture the incoming routing or rendering exception object
+  const error = useRouteError();
+  console.error(error); // Keep logging to the console for traditional debugging
+
+  /**
+   * Helper function to extract readable data out of the unknown error object.
+   * Handles native router errors, standard JS errors, or fallback strings.
+   */
+  const getErrorDetails = () => {
+    if (!error) {
+      return {
+        status: 404,
+        statusText: "Not Found",
+        message: "The requested URL path does not map to a structural view.",
+      };
+    }
+
+    return {
+      status: error.status || "App Crash",
+      statusText: error.statusText || "Internal Script Error",
+      message:
+        error.message ||
+        (typeof error === "string"
+          ? error
+          : "An unexpected execution error occurred inside the layout components."),
+    };
+  };
+
+  const details = getErrorDetails();
+
   return (
     <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen flex flex-col justify-between pb-4 md:pb-8">
-      {/* Reuses your custom animation block so the elements gracefully slide in */}
       <style>
         {`
           @keyframes fluidFadeUp {
-            0% {
-              opacity: 0;
-              transform: translateY(16px);
-            }
-            100% {
-              opacity: 1;
-              transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(16px); }
+            100% { opacity: 1; transform: translateY(0); }
           }
-
           .animate-fade-in-up {
             opacity: 0;
             animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -26,45 +48,60 @@ function Error() {
         `}
       </style>
 
-      {/* Keeps navigation active so they can jump to other pages easily */}
       <div>
         <NavBar />
       </div>
 
-      {/* Main 404 Hero Content */}
       <div className="flex-grow flex flex-col items-center justify-center text-center px-4 animate-fade-in-up">
-        {/* Glowing Construction-Themed Icon Box */}
-        <div className="relative group mb-6">
-          <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-yellow-500 rounded-full blur opacity-40 group-hover:opacity-70 transition duration-1000 group-hover:duration-200"></div>
-          <div className="relative bg-zinc-950 p-5 rounded-full border border-red-900/50 text-yellow-500">
-            {/* Custom SVG Construction/Traffic Cone */}
-            <svg
-              className="w-16 h-16 md:w-20 md:h-20"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.5"
-                d="M12 2L3 20h18L12 2zM5.7 17h12.6M8.4 12h7.2M10.2 8h3.6"
-              />
-            </svg>
+        {/* Glow Icon Header */}
+        <div className="relative group mb-4">
+          <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-yellow-500 rounded-full blur opacity-40 group-hover:opacity-60 transition duration-1000"></div>
+          <div className="relative bg-zinc-950 p-5 rounded-full border border-red-900/50 text-red-500 font-mono text-xl font-bold tracking-wider px-6 shadow-inner">
+            CODE: {details.status}
           </div>
         </div>
 
-        {/* Brand-consistent Typography */}
-        <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight">
-          404 - <span className="text-red-500">Under Construction?</span>
+        {/* Dynamic Typography Headings */}
+        <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+          System Status:{" "}
+          <span className="text-red-500">{details.statusText}</span>
         </h1>
 
-        <p className="text-zinc-400 mt-4 text-base md:text-lg max-w-md mx-auto">
-          Sorry, this page seems to have drifted off the blueprints or doesn't
-          exist anymore. Let's get you back to the main site.
+        <p className="text-zinc-400 mt-4 text-sm md:text-base max-w-md mx-auto">
+          The operation encountered an interruption. Review the diagnostic
+          report breakdown below:
         </p>
 
-        {/* Dynamic, Glowing Call-to-Action Button back to Home */}
+        {/* Diagnostic Code Printout Card Box */}
+        <div className="w-full max-w-xl mx-auto mt-6 bg-zinc-950/80 rounded-xl border border-zinc-800 p-4 text-left font-mono text-xs shadow-2xl relative overflow-hidden">
+          {/* Decorative Terminal Dots */}
+          <div className="flex gap-1.5 mb-3 border-b border-zinc-900 pb-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/60 block"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60 block"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500/60 block"></span>
+            <span className="text-zinc-600 pl-2 text-[10px] uppercase tracking-wider font-sans">
+              Diagnostic Report
+            </span>
+          </div>
+
+          <div className="text-zinc-400 space-y-1.5 break-words">
+            <p>
+              <span className="text-zinc-600">// Environment:</span> Production
+              / Client View
+            </p>
+            <p>
+              <span className="text-red-400 font-bold">Error Exception:</span>{" "}
+              {details.message}
+            </p>
+            {error?.stack && (
+              <p className="text-zinc-600 text-[10px] max-h-24 overflow-y-auto mt-2 pt-2 border-t border-zinc-900/50 whitespace-pre-wrap">
+                {error.stack}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Navigation Return Link button */}
         <div className="mt-8 relative group inline-block">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 via-amber-500 to-yellow-500 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-300"></div>
           <Link
@@ -76,7 +113,7 @@ function Error() {
         </div>
       </div>
 
-      {/* Footer Branding Placement matched to Home page layout */}
+      {/* Footer System Logo Alignment */}
       <div className="w-full flex justify-center md:justify-end md:pr-12 mt-4">
         <img
           src={PfsFooter}
