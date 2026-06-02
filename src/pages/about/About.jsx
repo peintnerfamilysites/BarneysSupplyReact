@@ -1,4 +1,4 @@
-import { useState } from "react"; // Added useState to control the image lightbox modal
+import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -18,143 +18,240 @@ import Gutters from "../../assets/gutters.webp";
 
 import GarageDoors from "../../assets/garage-doors.webp";
 
+// Job 1 imports
+import ray from "../../assets/ourwork/job1/ray.jpg";
+import ray1 from "../../assets/ourwork/job1/ray1.jpg";
+import ray2 from "../../assets/ourwork/job1/ray2.jpg";
+import ray3 from "../../assets/ourwork/job1/ray3.jpg";
+import ray4 from "../../assets/ourwork/job1/ray4.jpg";
+import ray5 from "../../assets/ourwork/job1/ray5.jpg";
+import ray6 from "../../assets/ourwork/job1/ray6.jpg";
+import ray7 from "../../assets/ourwork/job1/ray7.jpg";
+import ray8 from "../../assets/ourwork/job1/ray8.jpg";
+// Job 2 imports
+import rayfence from "../../assets/ourwork/job2/rayfence.jpg";
+import rayfence1 from "../../assets/ourwork/job2/rayfence1.jpg";
+import rayfence2 from "../../assets/ourwork/job2/rayfence2.jpg";
+
+// Add more images later when you have them.
+// Example:
+// import ShingleRoofing2 from "../../assets/shingle-roofing-2.webp";
+// import ShingleRoofing3 from "../../assets/shingle-roofing-3.webp";
+
 function About() {
+  const MAX_IMAGES_PER_PROJECT = 12;
+
   // Lightbox Modal States
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
 
-  // Complete project gallery dataset (12 items total for full lightbox rotation)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Each card is now treated as one project.
+  // Each project can hold up to 12 images max.
 
   const projectGallery = [
     {
-      src: ShingleRoofing,
+      coverImage: ray,
 
-      title: "Architectural Shingle Installation",
+      title: "Siding Installation",
 
-      location: "Ozark, MO",
+      location: "ReedsSpring, MO",
+
+      images: [ray, ray1, ray2, ray3, ray4, ray5, ray6, ray7, ray8].slice(
+        0,
+        MAX_IMAGES_PER_PROJECT,
+      ),
     },
 
     {
-      src: VinylSiding,
+      coverImage: rayfence,
 
-      title: "Premium Insulated Vinyl Siding",
+      title: "Privacy Fence Installation",
 
-      location: "Nixa, MO",
+      location: "ReedsSpring, MO",
+
+      images: [rayfence, rayfence1, rayfence2].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: Gutters,
+      coverImage: Gutters,
 
       title: "Seamless Gutter System Setup",
 
       location: "Springfield, MO",
+
+      images: [
+        Gutters,
+        // Gutters2,
+        // Gutters3,
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: GarageDoors,
+      coverImage: GarageDoors,
 
       title: "Heavy Duty Commercial Garage Doors",
 
       location: "Branson, MO",
+
+      images: [
+        GarageDoors,
+        // GarageDoors2,
+        // GarageDoors3,
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: ShingleRoofing,
+      coverImage: ShingleRoofing,
 
       title: "Residential Roof Replacement",
 
       location: "Republic, MO",
+
+      images: [
+        ShingleRoofing,
+        // Add this project's extra images here
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: VinylSiding,
+      coverImage: VinylSiding,
 
       title: "Custom Exterior Accent Siding",
 
       location: "Bolivar, MO",
+
+      images: [
+        VinylSiding,
+        // Add this project's extra images here
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: Gutters,
+      coverImage: Gutters,
 
       title: "Commercial Leaf Guard Integration",
 
       location: "Marshfield, MO",
+
+      images: [
+        Gutters,
+        // Add this project's extra images here
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: GarageDoors,
+      coverImage: GarageDoors,
 
       title: "Insulated Overhead Sectional Doors",
 
       location: "Willard, MO",
+
+      images: [
+        GarageDoors,
+        // Add this project's extra images here
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: ShingleRoofing,
+      coverImage: ShingleRoofing,
 
       title: "Storm Damage Metal-to-Shingle Retrofit",
 
       location: "Rogersville, MO",
+
+      images: [
+        ShingleRoofing,
+        // Add this project's extra images here
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: VinylSiding,
+      coverImage: VinylSiding,
 
       title: "Vertical Board & Batten Siding Profile",
 
       location: "Clever, MO",
+
+      images: [
+        VinylSiding,
+        // Add this project's extra images here
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: Gutters,
+      coverImage: Gutters,
 
       title: "High-Capacity Downspout Routing",
 
       location: "Strafford, MO",
+
+      images: [
+        Gutters,
+        // Add this project's extra images here
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
 
     {
-      src: GarageDoors,
+      coverImage: GarageDoors,
 
       title: "Modern Glass-Panel Garage Entry",
 
       location: "Battlefield, MO",
+
+      images: [
+        GarageDoors,
+        // Add this project's extra images here
+      ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
   ];
 
-  // Helper calculation formulas to establish surrounding index assets for high tech preview wheel
+  const currentProject = projectGallery[currentProjectIndex];
 
-  const prevIndex =
-    (currentIndex - 1 + projectGallery.length) % projectGallery.length;
+  const currentProjectImages = currentProject.images;
 
-  const nextIndex = (currentIndex + 1) % projectGallery.length;
+  const prevImageIndex =
+    (currentImageIndex - 1 + currentProjectImages.length) %
+    currentProjectImages.length;
 
-  // Open modal handler at specific image index
+  const nextImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
+
+  const currentImage = currentProjectImages[currentImageIndex];
+
+  const prevPreviewImage = currentProjectImages[prevImageIndex];
+
+  const nextPreviewImage = currentProjectImages[nextImageIndex];
+
+  // Open modal handler at specific project index
 
   const openLightbox = index => {
-    setCurrentIndex(index);
+    setCurrentProjectIndex(index);
+
+    setCurrentImageIndex(0);
 
     setIsOpen(true);
   };
 
-  // Navigate to next graphic asset
+  // Navigate to next image inside the currently selected project
 
   const nextImage = e => {
-    e.stopPropagation(); // Stops modal backdrop click from closing the window
+    e.stopPropagation();
 
-    setCurrentIndex(prevIndex => (prevIndex + 1) % projectGallery.length);
+    setCurrentImageIndex(
+      prevIndex => (prevIndex + 1) % currentProjectImages.length,
+    );
   };
 
-  // Navigate to previous graphic asset
+  // Navigate to previous image inside the currently selected project
 
   const prevImage = e => {
     e.stopPropagation();
 
-    setCurrentIndex(prevIndex =>
-      prevIndex === 0 ? projectGallery.length - 1 : prevIndex - 1,
+    setCurrentImageIndex(prevIndex =>
+      prevIndex === 0 ? currentProjectImages.length - 1 : prevIndex - 1,
     );
   };
 
@@ -272,7 +369,7 @@ animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             </h2>
 
             <p className="text-zinc-500 text-xs md:text-sm">
-              Click any image to expand the visual showcase
+              Click any project to expand its visual showcase
             </p>
           </div>
 
@@ -302,7 +399,7 @@ animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                   <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden flex flex-col">
                     <div className="relative aspect-video w-full overflow-hidden bg-zinc-900">
                       <img
-                        src={item.src}
+                        src={item.coverImage}
                         alt={item.title}
                         className="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-300"
                       />
@@ -315,6 +412,11 @@ animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
                       <span className="text-xs text-zinc-500 block mt-0.5 font-medium">
                         {item.location}
+                      </span>
+
+                      <span className="text-[11px] text-red-500 block mt-1 font-semibold uppercase tracking-wider">
+                        {item.images.length} Photo
+                        {item.images.length === 1 ? "" : "s"}
                       </span>
                     </div>
                   </div>
@@ -523,25 +625,27 @@ animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           <div className="relative w-full max-w-7xl flex items-center justify-center overflow-hidden py-10">
             {/* LEFT NAV TRIGGERS PREVIOUS CAROUSEL STEP */}
 
-            <button
-              className="absolute left-4 md:left-10 z-50 p-4 rounded-full bg-zinc-950/80 border border-zinc-800/80 text-white hover:border-red-600 cursor-pointer transition-all hover:bg-zinc-900 active:scale-95 shadow-xl group"
-              onClick={prevImage}
-              aria-label="Previous Project Image"
-            >
-              <svg
-                className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            {currentProjectImages.length > 1 && (
+              <button
+                className="absolute left-4 md:left-10 z-50 p-4 rounded-full bg-zinc-950/80 border border-zinc-800/80 text-white hover:border-red-600 cursor-pointer transition-all hover:bg-zinc-900 active:scale-95 shadow-xl group"
+                onClick={prevImage}
+                aria-label="Previous Project Image"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2.5"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
+                <svg
+                  className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+            )}
 
             {/* THE DECK INTERACTIVE FRAMEWORK LAYER */}
 
@@ -556,7 +660,7 @@ animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                 onClick={prevImage}
               >
                 <img
-                  src={projectGallery[prevIndex].src}
+                  src={prevPreviewImage}
                   alt="Previous preview context"
                   className="w-full h-full object-cover"
                 />
@@ -577,8 +681,8 @@ animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                   <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-red-500/60 pointer-events-none"></div>
 
                   <img
-                    src={projectGallery[currentIndex].src}
-                    alt={projectGallery[currentIndex].title}
+                    src={currentImage}
+                    alt={currentProject.title}
                     className="max-w-full max-h-[55vh] md:max-h-[60vh] object-contain rounded-xl select-none animate-[scaleIn_0.2s_ease-out]"
                   />
                 </div>
@@ -587,15 +691,15 @@ animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
                 <div className="text-center mt-6 px-4 w-full max-w-2xl bg-zinc-950/60 border border-zinc-900/80 backdrop-blur-md rounded-xl p-4 shadow-lg">
                   <h4 className="text-white font-bold text-base md:text-xl tracking-wide">
-                    {projectGallery[currentIndex].title}
+                    {currentProject.title}
                   </h4>
 
                   <div className="flex items-center justify-center gap-2 mt-1.5">
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
 
                     <p className="text-xs text-zinc-400 uppercase tracking-widest font-semibold">
-                      Location: {projectGallery[currentIndex].location} — (
-                      {currentIndex + 1} / {projectGallery.length})
+                      Location: {currentProject.location} — (
+                      {currentImageIndex + 1} / {currentProjectImages.length})
                     </p>
                   </div>
                 </div>
@@ -608,7 +712,7 @@ animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                 onClick={nextImage}
               >
                 <img
-                  src={projectGallery[nextIndex].src}
+                  src={nextPreviewImage}
                   alt="Next preview context"
                   className="w-full h-full object-cover"
                 />
@@ -617,25 +721,27 @@ animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
             {/* RIGHT NAV TRIGGERS NEXT CAROUSEL STEP */}
 
-            <button
-              className="absolute right-4 md:right-10 z-50 p-4 rounded-full bg-zinc-950/80 border border-zinc-800/80 text-white hover:border-red-600 cursor-pointer transition-all hover:bg-zinc-900 active:scale-95 shadow-xl group"
-              onClick={nextImage}
-              aria-label="Next Project Image"
-            >
-              <svg
-                className="w-5 h-5 group-hover:translate-x-0.5 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            {currentProjectImages.length > 1 && (
+              <button
+                className="absolute right-4 md:right-10 z-50 p-4 rounded-full bg-zinc-950/80 border border-zinc-800/80 text-white hover:border-red-600 cursor-pointer transition-all hover:bg-zinc-900 active:scale-95 shadow-xl group"
+                onClick={nextImage}
+                aria-label="Next Project Image"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2.5"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
+                <svg
+                  className="w-5 h-5 group-hover:translate-x-0.5 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       )}
