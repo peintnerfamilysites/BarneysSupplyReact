@@ -186,7 +186,7 @@ function Contact() {
 
             {/* Quick Email Box */}
             <a
-              href="mailto:Barneynx44@gmail.com"
+              href="mailto:BarneysSupplyCompany@gmail.com"
               className="flex items-center gap-4 p-5 bg-zinc-950/80 backdrop-blur-sm rounded-xl border border-zinc-800/60 hover:border-yellow-500/40 transition-all group"
             >
               <div className="p-3 rounded-lg bg-amber-950 text-yellow-500 group-hover:scale-110 transition-transform">
@@ -208,8 +208,8 @@ function Contact() {
                 <h4 className="text-zinc-400 text-xs uppercase tracking-wider font-bold">
                   Email Our Project Desk
                 </h4>
-                <p className="text-white font-extrabold text-base tracking-wide group-hover:text-yellow-400 transition-colors break-all">
-                  Barneynx44@gmail.com
+                <p className="text-white font-extrabold text-sm sm:text-base tracking-wide group-hover:text-yellow-400 transition-colors break-all">
+                  BarneysSupplyCompany@gmail.com
                 </p>
               </div>
             </a>
@@ -338,8 +338,8 @@ function Contact() {
                     name="message"
                     required
                     value={formData.message}
-                    onChange={handleInputChange}
                     placeholder="Tell us about your project dimensions, timeline, or repair urgency..."
+                    onChange={handleInputChange}
                     className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-red-600 transition-colors resize-none"
                   ></textarea>
                 </div>
@@ -348,10 +348,10 @@ function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full bg-gradient-to-r from-red-700 to-red-800 border border-yellow-400/30 font-bold tracking-wide uppercase text-sm text-white py-3.5 rounded-lg transition-all shadow-md active:scale-[0.98] ${
+                  className={`w-full bg-gradient-to-r from-red-700 to-red-800 border border-red-500/20 font-bold tracking-wide uppercase text-sm text-white py-3.5 rounded-lg transition-all shadow-md active:scale-[0.98] ${
                     isSubmitting
                       ? "opacity-60 cursor-not-allowed"
-                      : "hover:from-yellow-300 hover:to-amber-300 hover:text-red-950 hover:border-yellow-400"
+                      : "hover:from-red-600 hover:to-red-700"
                   }`}
                 >
                   {isSubmitting

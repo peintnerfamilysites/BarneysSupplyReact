@@ -1,10 +1,110 @@
-import { Link } from "react-router-dom"; // 1. Imported Link component
+import { useState } from "react"; // Added useState to control the image lightbox modal
+import { Link } from "react-router-dom";
 import NavBar from "../../components/navigation/NavBar";
 import Established from "../../assets/established.webp";
 import PfsFooter from "../../assets/pfs-footer.webp";
 
+// --- GALLERY SAMPLES ---
+import ShingleRoofing from "../../assets/shingle-roofing.webp";
+import VinylSiding from "../../assets/vinyl-siding.webp";
+import Gutters from "../../assets/gutters.webp";
+import GarageDoors from "../../assets/garage-doors.webp";
+
 function About() {
-  // Reusable outer card border layout (Mirrored from Home and Contact)
+  // Lightbox Modal States
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Complete project gallery dataset (12 items total for full lightbox rotation)
+  const projectGallery = [
+    {
+      src: ShingleRoofing,
+      title: "Architectural Shingle Installation",
+      location: "Ozark, MO",
+    },
+    {
+      src: VinylSiding,
+      title: "Premium Insulated Vinyl Siding",
+      location: "Nixa, MO",
+    },
+    {
+      src: Gutters,
+      title: "Seamless Gutter System Setup",
+      location: "Springfield, MO",
+    },
+    {
+      src: GarageDoors,
+      title: "Heavy Duty Commercial Garage Doors",
+      location: "Branson, MO",
+    },
+    {
+      src: ShingleRoofing,
+      title: "Residential Roof Replacement",
+      location: "Republic, MO",
+    },
+    {
+      src: VinylSiding,
+      title: "Custom Exterior Accent Siding",
+      location: "Bolivar, MO",
+    },
+    {
+      src: Gutters,
+      title: "Commercial Leaf Guard Integration",
+      location: "Marshfield, MO",
+    },
+    {
+      src: GarageDoors,
+      title: "Insulated Overhead Sectional Doors",
+      location: "Willard, MO",
+    },
+    {
+      src: ShingleRoofing,
+      title: "Storm Damage Metal-to-Shingle Retrofit",
+      location: "Rogersville, MO",
+    },
+    {
+      src: VinylSiding,
+      title: "Vertical Board & Batten Siding Profile",
+      location: "Clever, MO",
+    },
+    {
+      src: Gutters,
+      title: "High-Capacity Downspout Routing",
+      location: "Strafford, MO",
+    },
+    {
+      src: GarageDoors,
+      title: "Modern Glass-Panel Garage Entry",
+      location: "Battlefield, MO",
+    },
+  ];
+
+  // Helper calculation formulas to establish surrounding index assets for high tech preview wheel
+  const prevIndex =
+    (currentIndex - 1 + projectGallery.length) % projectGallery.length;
+  const nextIndex = (currentIndex + 1) % projectGallery.length;
+
+  // Open modal handler at specific image index
+  const openLightbox = index => {
+    setCurrentIndex(index);
+    setIsOpen(true);
+  };
+
+  // Navigate to next graphic asset
+  const nextImage = e => {
+    e.stopPropagation(); // Stops modal backdrop click from closing the window
+    setCurrentIndex(prevIndex => (prevIndex + 1) % projectGallery.length);
+  };
+
+  // Navigate to previous graphic asset
+  const prevImage = e => {
+    e.stopPropagation();
+    setCurrentIndex(prevIndex =>
+      prevIndex === 0 ? projectGallery.length - 1 : prevIndex - 1,
+    );
+  };
+
+  // Reusable outer card border layout (Mirrored perfectly from Home)
   const cardOuterBorderClass = `
     w-full relative group overflow-hidden rounded-xl 
     bg-gradient-to-r from-black via-red-600 to-yellow-500 p-[1px]
@@ -33,7 +133,6 @@ function About() {
       <div className="flex flex-col items-center gap-1 pt-2 w-full animate-fade-in-up">
         {/* ================= HERO SECTION ================= */}
         <div className="w-full max-w-[96vw] px-4 mt-6 md:mt-8 mb-6 md:mb-12 flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Headline - Flanks Left on Desktop */}
           <div className="w-full md:w-2/3 text-center md:text-left max-w-2xl">
             <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
               Our Legacy in the <span className="text-red-500">Ozarks</span>
@@ -46,7 +145,6 @@ function About() {
             </p>
           </div>
 
-          {/* Graphic Badge Container - Centers/Flanks Right */}
           <div className="w-full md:w-1/3 flex justify-center md:justify-end">
             <img
               src={Established}
@@ -87,6 +185,60 @@ function About() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* ================= OUR WORK / GALLERY SECTION ================= */}
+        <div className="w-full max-w-[96vw] px-4 mb-8">
+          <div className="border-b border-zinc-900 pb-4 mb-6 flex flex-col md:flex-row md:items-end justify-between gap-2">
+            <h2 className="text-xl md:text-2xl font-bold text-white tracking-wide flex items-center gap-2">
+              <span className="inline-block w-2 h-2 rounded-full bg-red-500"></span>
+              Our Recent Work
+            </h2>
+            <p className="text-zinc-500 text-xs md:text-sm">
+              Click any image to expand the visual showcase
+            </p>
+          </div>
+
+          {/* Grid layout with dynamic visibility filters */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+            {projectGallery.map((item, index) => {
+              // Structural filter rules:
+              // 1. Completely hide cards 9 through 12 across all platforms
+              if (index >= 8) return null;
+
+              // 2. Hide items 5 through 8 exclusively on mobile screens ('hidden sm:block')
+              const responsiveWrapperClass =
+                index >= 4
+                  ? `${cardOuterBorderClass} hidden sm:block cursor-pointer`
+                  : `${cardOuterBorderClass} cursor-pointer`;
+
+              return (
+                <div
+                  key={index}
+                  className={responsiveWrapperClass}
+                  onClick={() => openLightbox(index)}
+                >
+                  <div className="w-full h-full bg-zinc-950 rounded-xl overflow-hidden flex flex-col">
+                    <div className="relative aspect-video w-full overflow-hidden bg-zinc-900">
+                      <img
+                        src={item.src}
+                        alt={item.title}
+                        className="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-300"
+                      />
+                    </div>
+                    <div className="p-4 bg-zinc-950 mt-auto border-t border-zinc-900/40">
+                      <h3 className="text-sm font-bold text-white tracking-wide truncate">
+                        {item.title}
+                      </h3>
+                      <span className="text-xs text-zinc-500 block mt-0.5 font-medium">
+                        {item.location}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -227,14 +379,12 @@ function About() {
               upkeep.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 relative z-10">
-              {/* Native anchor remains for tel links */}
               <a
                 href="tel:+14177254153"
                 className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-red-700 to-red-800 text-white font-bold rounded-lg text-sm uppercase tracking-wider hover:from-red-600 hover:to-red-700 transition-all text-center shadow-md active:scale-95 border border-red-500/20"
               >
                 Call Main Office: (417) 725-4153
               </a>
-              {/* 2. Swapped for React Router Link */}
               <Link
                 to="/contact"
                 className="w-full sm:w-auto px-6 py-3.5 bg-zinc-900 border border-zinc-800 text-zinc-300 font-bold rounded-lg text-sm uppercase tracking-wider hover:border-yellow-500/50 hover:text-white transition-all text-center active:scale-95"
@@ -249,11 +399,134 @@ function About() {
         <div className="w-full flex justify-center md:justify-end md:pr-12 mt-2">
           <img
             src={PfsFooter}
-            className="w-2/5 md:w-1/4 h-auto object-contain cursor-pointer transition-all duration-300 scale-75 hover:scale-100 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+            className="w-[45%] md:w-[18%] h-auto object-contain cursor-pointer transition-all duration-300 scale-90 hover:scale-95 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
             alt="PFS Footer representation"
           />
         </div>
       </div>
+
+      {/* ================= HIGH-TECH TRIPLE IMAGES LIGHTBOX WHEEL ================= */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-8 animate-[fadeIn_0.2s_ease-out]"
+          onClick={() => setIsOpen(false)}
+        >
+          {/* Top Close Control Utility */}
+          <button
+            className="absolute top-4 right-4 md:top-6 md:right-8 text-zinc-500 hover:text-white text-3xl font-light p-2 cursor-pointer transition-colors z-50 bg-black/40 rounded-full w-12 h-12 flex items-center justify-center border border-zinc-900"
+            onClick={() => setIsOpen(false)}
+            aria-label="Close Lightbox"
+          >
+            ✕
+          </button>
+
+          {/* Core Interactive Wheel Container */}
+          <div className="relative w-full max-w-7xl flex items-center justify-center overflow-hidden py-10">
+            {/* LEFT NAV TRIGGERS PREVIOUS CAROUSEL STEP */}
+            <button
+              className="absolute left-4 md:left-10 z-50 p-4 rounded-full bg-zinc-950/80 border border-zinc-800/80 text-white hover:border-red-600 cursor-pointer transition-all hover:bg-zinc-900 active:scale-95 shadow-xl group"
+              onClick={prevImage}
+              aria-label="Previous Project Image"
+            >
+              <svg
+                className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.5"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            {/* THE DECK INTERACTIVE FRAMEWORK LAYER */}
+            <div
+              className="w-full flex items-center justify-center gap-4 md:gap-10 relative select-none"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* PREVIOUS FLANK IMAGE PREVIEW CARD */}
+              <div
+                className="hidden md:block w-1/5 aspect-video overflow-hidden rounded-lg opacity-25 blur-xs scale-90 border border-zinc-900 cursor-pointer hover:opacity-40 transition-all duration-300 transform -rotate-y-12"
+                onClick={prevImage}
+              >
+                <img
+                  src={projectGallery[prevIndex].src}
+                  alt="Previous preview context"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* CENTRAL MAIN HIGH-RESOLUTION DISPLAY CARD */}
+              <div className="w-full md:w-3/5 flex flex-col items-center">
+                <div className="relative group p-[1px] bg-gradient-to-b from-zinc-800 via-red-600/30 to-zinc-950 rounded-xl shadow-[0_0_40px_rgba(239,68,68,0.25)] border border-zinc-900">
+                  {/* High Tech Crosshair Corner Accents */}
+                  <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-red-500/60 pointer-events-none"></div>
+                  <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-red-500/60 pointer-events-none"></div>
+                  <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-red-500/60 pointer-events-none"></div>
+                  <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-red-500/60 pointer-events-none"></div>
+
+                  <img
+                    src={projectGallery[currentIndex].src}
+                    alt={projectGallery[currentIndex].title}
+                    className="max-w-full max-h-[55vh] md:max-h-[60vh] object-contain rounded-xl select-none animate-[scaleIn_0.2s_ease-out]"
+                  />
+                </div>
+
+                {/* Image Metadata & Location Context Overlay */}
+                <div className="text-center mt-6 px-4 w-full max-w-2xl bg-zinc-950/60 border border-zinc-900/80 backdrop-blur-md rounded-xl p-4 shadow-lg">
+                  <h4 className="text-white font-bold text-base md:text-xl tracking-wide">
+                    {projectGallery[currentIndex].title}
+                  </h4>
+                  <div className="flex items-center justify-center gap-2 mt-1.5">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                    <p className="text-xs text-zinc-400 uppercase tracking-widest font-semibold">
+                      Location: {projectGallery[currentIndex].location} — (
+                      {currentIndex + 1} / {projectGallery.length})
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* NEXT FLANK IMAGE PREVIEW CARD */}
+              <div
+                className="hidden md:block w-1/5 aspect-video overflow-hidden rounded-lg opacity-25 blur-xs scale-90 border border-zinc-900 cursor-pointer hover:opacity-40 transition-all duration-300 transform rotate-y-12"
+                onClick={nextImage}
+              >
+                <img
+                  src={projectGallery[nextIndex].src}
+                  alt="Next preview context"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* RIGHT NAV TRIGGERS NEXT CAROUSEL STEP */}
+            <button
+              className="absolute right-4 md:right-10 z-50 p-4 rounded-full bg-zinc-950/80 border border-zinc-800/80 text-white hover:border-red-600 cursor-pointer transition-all hover:bg-zinc-900 active:scale-95 shadow-xl group"
+              onClick={nextImage}
+              aria-label="Next Project Image"
+            >
+              <svg
+                className="w-5 h-5 group-hover:translate-x-0.5 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.5"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

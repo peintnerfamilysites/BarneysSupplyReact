@@ -14,6 +14,38 @@ function NavBar() {
   const [pendingPath, setPendingPath] = useState(null);
   const [isDesktop, setIsDesktop] = useState(false);
 
+  const [showMenuBlock, setShowMenuBlock] = useState(true);
+  const [showCloseBlock, setShowCloseBlock] = useState(false);
+  const [triggerCloseFlash, setTriggerCloseFlash] = useState(false);
+  const [hasOpenedOnce, setHasOpenedOnce] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowMenuBlock(false);
+    }, 3100); // Extended slightly to match the longer animation loop
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      if (!hasOpenedOnce) {
+        setShowCloseBlock(true);
+        setTriggerCloseFlash(true);
+
+        const timer = setTimeout(() => {
+          setTriggerCloseFlash(false);
+          setShowCloseBlock(false);
+          setHasOpenedOnce(true);
+        }, 3100); // Extended slightly to match the longer animation loop
+
+        return () => clearTimeout(timer);
+      }
+    } else {
+      setShowCloseBlock(false);
+      setTriggerCloseFlash(false);
+    }
+  }, [isOpen, hasOpenedOnce]);
+
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 992px)");
 
@@ -98,49 +130,83 @@ function NavBar() {
   };
 
   return (
-    /* FIXED: Changed mobile height from h-full to h-auto so the navigation wrapper 
-       collapses and doesn't stretch across the entire page invisibly on mobile. */
     <nav className="navbar absolute lg:sticky lg:top-0 lg:flex lg:justify-between lg:items-center w-full mx-auto h-auto bg-transparent lg:bg-gradient-to-r lg:from-black lg:via-red-950 lg:to-amber-950 lg:px-6 z-40">
-      {/* Dynamic Keyframes to handle background/scale pulsing safely without layout interference */}
       <style>{`
         @keyframes customPulse {
-          0%, 100% {
-            transform: scale(1);
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-          }
-          50% {
-            transform: scale(1.06);
-            filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.6));
-          }
+          0%, 100% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+          50% { transform: scale(1.06); filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.6)); }
+        }
+        @keyframes flashSlower {
+          0%, 33%, 66%, 100% { opacity: 1; }
+          16%, 50%, 83% { opacity: 0.15; }
         }
         .nav-trigger-pulse {
           animation: customPulse 2.2s infinite ease-in-out;
         }
+        .animate-flash-slow {
+          animation: flashSlower 3.0s ease-in-out forwards;
+        }
       `}</style>
 
-      {/* Interactive Trigger Area */}
       <div
-        className="fixed top-1/2 -translate-y-1/2 right-1 md:right-5 lg:hidden z-50 w-14 h-14 flex items-center justify-center cursor-pointer group"
+        className="fixed top-1/2 -translate-y-1/2 right-1 md:right-5 lg:hidden z-50 flex items-center justify-center cursor-pointer group select-none"
         onClick={handleModal}
       >
-        <img
-          src={NavOpen}
-          alt={isOpen ? "Close menu" : "Open menu"}
-          className={`w-full h-auto object-contain transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
-            group-hover:scale-110 group-hover:brightness-110 group-active:scale-90
-            ${
-              isOpen
-                ? "rotate-90 brightness-90 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]"
-                : "nav-trigger-pulse"
-            }`}
-        />
+        <div
+          className={`flex flex-col items-center justify-center gap-1 ${!isOpen ? "nav-trigger-pulse" : ""}`}
+        >
+          <div className="h-20 flex flex-col items-center justify-end relative w-full">
+            {isOpen && showCloseBlock && (
+              <div
+                className={`flex flex-col items-center absolute bottom-1 left-1/2 -translate-x-1/2
+                  ${triggerCloseFlash ? "animate-flash-slow" : "opacity-100"}`}
+              >
+                <div className="flex flex-col items-center justify-center w-7 py-1.5 rounded-md bg-black/25 backdrop-blur-[2px] font-sans font-black text-[11px] leading-[1.35] text-amber-400 drop-shadow-[0_2px_4px_rgba(0,0,0,1)] uppercase select-none tracking-normal">
+                  <span>C</span>
+                  <span>L</span>
+                  <span>O</span>
+                  <span>S</span>
+                  <span>E</span>
+                </div>
+                <span className="text-amber-400 text-sm font-black leading-none mt-1 drop-shadow-[0_2px_4px_rgba(0,0,0,1)] animate-bounce">
+                  ↓
+                </span>
+              </div>
+            )}
+          </div>
+
+          <div className="w-14 h-14 relative flex items-center justify-center shrink-0">
+            <img
+              src={NavOpen}
+              alt={isOpen ? "Close menu" : "Open menu"}
+              className={`w-full h-full object-contain transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+                group-hover:scale-110 group-hover:brightness-110 group-active:scale-90
+                ${isOpen ? "rotate-90 brightness-90 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]" : ""}`}
+            />
+          </div>
+
+          <div className="h-20 flex flex-col items-center justify-start relative w-full">
+            {!isOpen && showMenuBlock && (
+              <div className="flex flex-col items-center absolute top-1 left-1/2 -translate-x-1/2 animate-flash-slow">
+                <span className="text-amber-400 text-sm font-black leading-none mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,1)] animate-bounce">
+                  ↑
+                </span>
+
+                <div className="flex flex-col items-center justify-center w-7 py-1.5 rounded-md bg-black/25 backdrop-blur-[2px] font-sans font-black text-[11px] leading-[1.35] text-amber-400 drop-shadow-[0_2px_4px_rgba(0,0,0,1)] uppercase select-none tracking-normal">
+                  <span>M</span>
+                  <span>E</span>
+                  <span>N</span>
+                  <span>U</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <ul
         onClick={handleModal}
         onAnimationEnd={handleAnimationEnd}
-        /* FIXED: Enforced a strict 'hidden' logic flag on mobile when the drawer isn't open or actively animating out. 
-           This drops the overlay completely out of the viewport DOM touch registry so you can type freely underneath. */
         className={`nav-links w-full h-[100dvh] fixed inset-0 lg:static flex-col items-center justify-start gap-4 text-2xl pt-24 pb-12 overflow-y-auto lg:overflow-visible lg:flex lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:pb-0 lg:pt-0 lg:h-auto lg:text-xl lg:w-full 
         ${!isDesktop ? "animate__animated animate__fast" : ""} 
         ${isOpen || (!isDesktop && isAnimatingOut) ? "flex" : "hidden"} 
@@ -148,7 +214,6 @@ function NavBar() {
         ${!isDesktop && !isAnimatingOut ? "animate__fadeInDown" : ""} 
         ${isOpen ? "bg-gradient-to-r from-black/90 via-red-950/90 to-amber-950/90 backdrop-blur-xl" : "bg-transparent"}`}
       >
-        {/* Logo Left Container */}
         <li
           className={`w-full lg:w-[320px] lg:flex-initial text-center lg:relative lg:h-32 lg:flex lg:items-center lg:justify-center py-4 shrink-0 ${getMobileStaggerClass()}`}
           style={{ animationDelay: isOpen ? "40ms" : "0ms" }}
@@ -166,9 +231,7 @@ function NavBar() {
           </Link>
         </li>
 
-        {/* Buttons Center Container */}
         <li className="w-full flex flex-col items-center justify-center gap-5 pb-12 lg:flex-row lg:flex-1 lg:justify-center lg:gap-3 xl:gap-5 lg:w-auto lg:pb-0 flex-wrap max-w-xl lg:max-w-none">
-          {/* Home Button */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/").container} ${getMobileStaggerClass()}`}
@@ -183,7 +246,6 @@ function NavBar() {
             </Link>
           </div>
 
-          {/* About Us Button */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/about").container} ${getMobileStaggerClass()}`}
@@ -198,7 +260,6 @@ function NavBar() {
             </Link>
           </div>
 
-          {/* Contact Us Button */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/contact").container} ${getMobileStaggerClass()}`}
@@ -213,7 +274,6 @@ function NavBar() {
             </Link>
           </div>
 
-          {/* Services Button */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/services").container} ${getMobileStaggerClass()}`}
@@ -228,7 +288,6 @@ function NavBar() {
             </Link>
           </div>
 
-          {/* Insurance Button */}
           <div
             onClick={e => e.stopPropagation()}
             className={`${getButtonConfig("/insurance").container} ${getMobileStaggerClass()}`}
@@ -244,7 +303,6 @@ function NavBar() {
           </div>
         </li>
 
-        {/* Call Us Button */}
         <li
           className={`w-full flex justify-center -mt-2 pb-12 lg:hidden shrink-0 ${getMobileStaggerClass()}`}
           style={{ animationDelay: isOpen ? "400ms" : "0ms" }}
@@ -262,7 +320,6 @@ function NavBar() {
           </a>
         </li>
 
-        {/* Desktop Contact Button Right Container */}
         <li className="hidden lg:flex lg:w-[220px] lg:flex-initial lg:h-32 lg:items-center lg:justify-end lg:pr-10 shrink-0">
           <Link
             to="/contact"

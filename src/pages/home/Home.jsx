@@ -26,7 +26,7 @@ function Home() {
 
   // Reusable card outer border layout
   const cardOuterBorderClass = `
-    flex flex-col md:block relative group overflow-hidden rounded-xl 
+    w-full flex flex-col md:block relative group overflow-hidden rounded-xl 
     bg-gradient-to-r from-black via-red-600 to-yellow-500 p-[1px]
     shadow-lg transition-all duration-300 hover:scale-[1.02] 
     hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]
@@ -111,21 +111,21 @@ function Home() {
           </div>
         </div>
 
-        {/* Top 3 Graphic Banner Blocks */}
+        {/* Top 3 Graphic Banner Blocks - Removed cursor-pointer */}
         <div className="w-full flex flex-col gap-1 md:flex-row md:justify-center md:flex-wrap md:gap-x-4 md:gap-y-4 lg:gap-x-8 md:max-w-[96vw]">
           <img
             src={SpringTime}
-            className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 cursor-pointer md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
+            className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
             alt="springtime deals in the ozarks"
           />
           <img
             src={OurPromise}
-            className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 cursor-pointer md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
+            className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
             alt="Our Promise"
           />
           <img
             src={SomeServices}
-            className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 cursor-pointer md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
+            className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
             alt="Services Image"
           />
         </div>
@@ -143,7 +143,8 @@ function Home() {
             />
           </Link>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-2 w-full max-w-[96vw]">
+          {/* Grid setup for full-width content mapping with a maximum cap of 3 elements per line */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-6 w-full max-w-[96vw] justify-items-center">
             {/* Card 1: Shingle Roofing */}
             <div className={cardOuterBorderClass}>
               <div className={cardInnerContainerClass}>
@@ -256,46 +257,9 @@ function Home() {
                 </div>
               </div>
             </div>
-
-            {/* Card 4: Garage Doors */}
-            <div className={cardOuterBorderClass}>
-              <div className={cardInnerContainerClass}>
-                <div className="relative w-full">
-                  <img
-                    src={GarageDoors}
-                    alt="Garage Doors"
-                    className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
-                  />
-                  <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                </div>
-                <div className="p-4 bg-zinc-950 md:bg-transparent md:absolute md:inset-0 md:p-5 flex flex-col justify-end z-10">
-                  <div className="text-amber-500 mb-1.5 md:mb-1 transition-transform duration-300 group-hover:md:-translate-y-1">
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-lg font-bold text-white tracking-wide md:drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                    Garage Doors
-                  </h3>
-                  <p className="text-zinc-400 md:text-zinc-300 text-sm md:text-xs mt-1 md:mt-0.5 opacity-100 md:opacity-0 group-hover:md:opacity-100 max-h-none md:max-h-0 group-hover:md:max-h-12 transition-all duration-300 ease-out md:drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
-                    Insulated garage doors, spring repairs, and opener setups.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
-          <div className="block md:hidden max-w-[160px] w-full mx-auto mt-0">
+          <div className="block md:hidden max-w-[160px] w-full mx-auto mt-6">
             <a href="tel:19034177043">
               <img
                 src={CallUs}
@@ -305,9 +269,9 @@ function Home() {
             </a>
           </div>
 
-          {/* Desktop Footer Section with Targeted Hover Configurations */}
-          <div className="hidden md:flex items-center justify-between mt-0 md:-mt-16 w-full max-w-[96vw] px-4 md:px-6 lg:px-12">
-            {/* Call Us - HOVER REMOVED */}
+          {/* Desktop Footer Section */}
+          <div className="hidden md:flex items-center justify-between mt-6 w-full max-w-[96vw] px-4 md:px-6 lg:px-12">
+            {/* Call Us */}
             <div className="w-1/4 max-w-[280px] relative">
               <img
                 src={PhoneNumbers}
@@ -331,7 +295,7 @@ function Home() {
               </div>
             </div>
 
-            {/* Email Us - WRAPPED IN ROUTER LINK TO CONTACT PAGE */}
+            {/* Email Us */}
             <div className="w-[35%] max-w-[440px] relative">
               <Link to="/contact" className="block w-full h-full">
                 <img
@@ -349,7 +313,7 @@ function Home() {
               </div>
             </div>
 
-            {/* Established in 1944 - HOVER REMOVED */}
+            {/* Established in 1944 */}
             <div className="w-[35%] max-w-[440px] relative">
               <img
                 src={Established}
@@ -366,10 +330,11 @@ function Home() {
             </div>
           </div>
 
-          <div className="w-full flex justify-center md:justify-end md:pr-12 mt-0 md:-mt-8">
+          {/* PFS Footer - ADJUSTED LOGO LAYOUT (Larger mobile w-[45%], smaller desktop md:w-[18%], subtle hover grow) */}
+          <div className="w-full flex justify-center md:justify-end md:pr-12 mt-4 md:mt-2">
             <img
               src={PfsFooter}
-              className="w-2/5 md:w-1/4 h-auto object-contain cursor-pointer transition-all duration-300 scale-75 hover:scale-100 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
+              className="w-[45%] md:w-[18%] h-auto object-contain cursor-pointer transition-all duration-300 scale-90 hover:scale-95 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
               alt="PFS Footer image"
             />
           </div>
