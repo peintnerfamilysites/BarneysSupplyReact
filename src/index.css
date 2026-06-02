@@ -13,4 +13,5 @@ html,
 body {
   /* Prevents elastic overscroll bouncing on mobile iOS/Android */
   overscroll-behavior: none;
+  scroll-behavior: smooth;
 }

@@ -21,7 +21,6 @@ function Home() {
     h-auto object-contain 
     transition-all duration-300
     md:drop-shadow-[0_6px_12px_rgba(239,68,68,0.35)] 
-    cursor-pointer
   `.trim();
 
   // Reusable card outer border layout
@@ -260,7 +259,7 @@ function Home() {
           </div>
 
           <div className="block md:hidden max-w-[160px] w-full mx-auto mt-6">
-            <a href="tel:19034177043">
+            <a href="tel:17254153">
               <img
                 src={CallUs}
                 className="w-full h-auto object-contain cursor-pointer"
@@ -300,7 +299,7 @@ function Home() {
               <Link to="/contact" className="block w-full h-full">
                 <img
                   src={EmailUs}
-                  className={`${baseFooterImageClass} hover:scale-[1.04] hover:md:drop-shadow-[0_6px_25px_rgba(234,179,8,0.7)]`}
+                  className={`${baseFooterImageClass} cursor-pointer hover:scale-[1.04] hover:md:drop-shadow-[0_6px_25px_rgba(234,179,8,0.7)]`}
                   alt="Email Barneys Supply for a free exterior construction estimate"
                 />
               </Link>

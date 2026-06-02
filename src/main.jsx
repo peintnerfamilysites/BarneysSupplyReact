@@ -6,6 +6,7 @@ import About from "./pages/about/About.jsx";
 import Contact from "./pages/contact/Contact.jsx";
 import Services from "./pages/services/Services.jsx";
 import Insurance from "./pages/insurance/Insurance.jsx";
+import TermsOfUse from "./pages/termsofuse/TermsOfUse.jsx";
 import Error from "./pages/error/Error.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/layout/Layout.jsx";
@@ -38,6 +39,10 @@ const router = createBrowserRouter(
         {
           path: "/insurance",
           element: <Insurance />,
+        },
+        {
+          path: "/terms",
+          element: <TermsOfUse />,
         },
         {
           path: "*",
