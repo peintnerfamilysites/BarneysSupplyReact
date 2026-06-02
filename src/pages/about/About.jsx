@@ -2,7 +2,7 @@ import { useState } from "react"; // Added useState to control the image lightbo
 import { Link } from "react-router-dom";
 import NavBar from "../../components/navigation/NavBar";
 import Established from "../../assets/established.webp";
-import PfsFooter from "../../assets/pfs-footer.webp";
+import Footer from "../../components/footer/Footer";
 
 // --- GALLERY SAMPLES ---
 import ShingleRoofing from "../../assets/shingle-roofing.webp";
@@ -395,14 +395,7 @@ function About() {
           </div>
         </div>
 
-        {/* ================= FOOTER ASSET ================= */}
-        <div className="w-full flex justify-center md:justify-end md:pr-12 mt-2">
-          <img
-            src={PfsFooter}
-            className="w-[45%] md:w-[18%] h-auto object-contain cursor-pointer transition-all duration-300 scale-90 hover:scale-95 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
-            alt="PFS Footer representation"
-          />
-        </div>
+        <Footer />
       </div>
 
       {/* ================= HIGH-TECH TRIPLE IMAGES LIGHTBOX WHEEL ================= */}

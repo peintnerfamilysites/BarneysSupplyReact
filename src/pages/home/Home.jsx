@@ -13,7 +13,7 @@ import GarageDoors from "../../assets/garage-doors.webp";
 import PhoneNumbers from "../../assets/phone-numbers.webp";
 import Established from "../../assets/established.webp";
 import EmailUs from "../../assets/email-us.webp";
-import PfsFooter from "../../assets/pfs-footer.webp";
+import Footer from "../../components/footer/Footer";
 
 function Home() {
   // Shared base styles for the three core footer graphics
@@ -330,14 +330,7 @@ function Home() {
             </div>
           </div>
 
-          {/* PFS Footer - ADJUSTED LOGO LAYOUT (Larger mobile w-[45%], smaller desktop md:w-[18%], subtle hover grow) */}
-          <div className="w-full flex justify-center md:justify-end md:pr-12 mt-4 md:mt-2">
-            <img
-              src={PfsFooter}
-              className="w-[45%] md:w-[18%] h-auto object-contain cursor-pointer transition-all duration-300 scale-90 hover:scale-95 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
-              alt="PFS Footer image"
-            />
-          </div>
+          <Footer />
         </div>
       </div>
     </div>

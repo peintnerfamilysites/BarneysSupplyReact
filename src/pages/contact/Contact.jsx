@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser"; // 1. Import EmailJS
 import NavBar from "../../components/navigation/NavBar";
 import PhoneNumbers from "../../assets/phone-numbers.webp";
 import Established from "../../assets/established.webp";
-import PfsFooter from "../../assets/pfs-footer.webp";
+import Footer from "../../components/footer/Footer";
 
 function Contact() {
   // Shared base styles for the top brand graphics
@@ -373,13 +373,7 @@ function Contact() {
         </div>
 
         {/* Footer Brand Logo Block */}
-        <div className="w-full flex justify-center md:justify-end md:pr-12 mt-4 md:mt-0">
-          <img
-            src={PfsFooter}
-            className="w-2/5 md:w-1/4 h-auto object-contain cursor-pointer transition-all duration-300 scale-75 hover:scale-100 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
-            alt="PFS Footer representation"
-          />
-        </div>
+        <Footer />
       </div>
     </div>
   );
