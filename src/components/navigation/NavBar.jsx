@@ -308,7 +308,7 @@ function NavBar() {
           style={{ animationDelay: isOpen ? "400ms" : "0ms" }}
         >
           <a
-            href="tel:+19034177043"
+            href="tel:+14177254153"
             onClick={e => e.stopPropagation()}
             className="inline-block transition-transform active:scale-90 duration-150 w-36 max-w-[120px]"
           >

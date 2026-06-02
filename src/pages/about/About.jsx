@@ -63,7 +63,7 @@ function About() {
     },
 
     {
-      coverImage: Gutters,
+      coverImage: ray,
 
       title: "Seamless Gutter System Setup",
 
@@ -77,7 +77,7 @@ function About() {
     },
 
     {
-      coverImage: GarageDoors,
+      coverImage: ray4,
 
       title: "Heavy Duty Commercial Garage Doors",
 
@@ -91,7 +91,7 @@ function About() {
     },
 
     {
-      coverImage: ShingleRoofing,
+      coverImage: ray4,
 
       title: "Residential Roof Replacement",
 
@@ -104,7 +104,7 @@ function About() {
     },
 
     {
-      coverImage: VinylSiding,
+      coverImage: ray6,
 
       title: "Custom Exterior Accent Siding",
 
@@ -117,7 +117,7 @@ function About() {
     },
 
     {
-      coverImage: Gutters,
+      coverImage: ray2,
 
       title: "Commercial Leaf Guard Integration",
 
@@ -130,7 +130,7 @@ function About() {
     },
 
     {
-      coverImage: GarageDoors,
+      coverImage: ray3,
 
       title: "Insulated Overhead Sectional Doors",
 
@@ -143,7 +143,7 @@ function About() {
     },
 
     {
-      coverImage: ShingleRoofing,
+      coverImage: rayfence1,
 
       title: "Storm Damage Metal-to-Shingle Retrofit",
 
@@ -156,7 +156,7 @@ function About() {
     },
 
     {
-      coverImage: VinylSiding,
+      coverImage: ray7,
 
       title: "Vertical Board & Batten Siding Profile",
 
@@ -169,7 +169,7 @@ function About() {
     },
 
     {
-      coverImage: Gutters,
+      coverImage: ray4,
 
       title: "High-Capacity Downspout Routing",
 
@@ -182,14 +182,14 @@ function About() {
     },
 
     {
-      coverImage: GarageDoors,
+      coverImage: ray6,
 
       title: "Modern Glass-Panel Garage Entry",
 
       location: "Battlefield, MO",
 
       images: [
-        GarageDoors,
+        ray4,
         // Add this project's extra images here
       ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
