@@ -1,22 +1,8 @@
 import { useState } from "react";
-
 import { Link } from "react-router-dom";
-
 import NavBar from "../../components/navigation/NavBar";
-
 import Established from "../../assets/established.webp";
-
 import Footer from "../../components/footer/Footer";
-
-// --- GALLERY SAMPLES ---
-
-import ShingleRoofing from "../../assets/shingle-roofing.webp";
-
-import VinylSiding from "../../assets/vinyl-siding.webp";
-
-import Gutters from "../../assets/gutters.webp";
-
-import GarageDoors from "../../assets/garage-doors.webp";
 
 // Job 1 imports
 import ray from "../../assets/ourwork/job1/ray.jpg";
@@ -84,7 +70,7 @@ function About() {
       location: "Springfield, MO",
 
       images: [
-        Gutters,
+        ray,
         // Gutters2,
         // Gutters3,
       ].slice(0, MAX_IMAGES_PER_PROJECT),
@@ -98,7 +84,7 @@ function About() {
       location: "Branson, MO",
 
       images: [
-        GarageDoors,
+        rayfence,
         // GarageDoors2,
         // GarageDoors3,
       ].slice(0, MAX_IMAGES_PER_PROJECT),
@@ -112,7 +98,7 @@ function About() {
       location: "Republic, MO",
 
       images: [
-        ShingleRoofing,
+        ray4,
         // Add this project's extra images here
       ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
@@ -125,7 +111,7 @@ function About() {
       location: "Bolivar, MO",
 
       images: [
-        VinylSiding,
+        rayfence2,
         // Add this project's extra images here
       ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
@@ -138,7 +124,7 @@ function About() {
       location: "Marshfield, MO",
 
       images: [
-        Gutters,
+        ray5,
         // Add this project's extra images here
       ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
@@ -151,7 +137,7 @@ function About() {
       location: "Willard, MO",
 
       images: [
-        GarageDoors,
+        ray3,
         // Add this project's extra images here
       ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
@@ -164,7 +150,7 @@ function About() {
       location: "Rogersville, MO",
 
       images: [
-        ShingleRoofing,
+        ray8,
         // Add this project's extra images here
       ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
@@ -177,7 +163,7 @@ function About() {
       location: "Clever, MO",
 
       images: [
-        VinylSiding,
+        ray6,
         // Add this project's extra images here
       ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
@@ -190,7 +176,7 @@ function About() {
       location: "Strafford, MO",
 
       images: [
-        Gutters,
+        ray5,
         // Add this project's extra images here
       ].slice(0, MAX_IMAGES_PER_PROJECT),
     },
