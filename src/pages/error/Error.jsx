@@ -1,7 +1,7 @@
 import { Link, useRouteError } from "react-router-dom";
 import NavBar from "../../components/navigation/NavBar";
-import PfsFooter from "../../assets/pfs-footer.webp";
 import Footer from "../../components/footer/Footer";
+import Seo from "../../components/seo/Seo";
 
 function Error() {
   // Capture the incoming routing or rendering exception object
@@ -35,6 +35,12 @@ function Error() {
   const details = getErrorDetails();
 
   return (
+    <>
+      <Seo
+        title="Page Not Found"
+        description="The page you are looking for could not be found. Return to Barneys Supply Company for roofing, siding, seamless gutter, and exterior construction services."
+        path="/404"
+      />
     <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen flex flex-col justify-between pb-4 md:pb-8">
       <style>
         {`
@@ -117,6 +123,7 @@ function Error() {
       {/* Footer System Logo Alignment */}
       <Footer />
     </div>
+    </>
   );
 }
 

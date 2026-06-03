@@ -9,11 +9,11 @@ import ShingleRoofing from "../../assets/shingle-roofing.webp";
 import VinylSiding from "../../assets/vinyl-siding.webp";
 import CallUs from "../../assets/call-us.webp";
 import Gutters from "../../assets/gutters.webp";
-import GarageDoors from "../../assets/garage-doors.webp";
 import PhoneNumbers from "../../assets/phone-numbers.webp";
 import Established from "../../assets/established.webp";
 import EmailUs from "../../assets/email-us.webp";
 import Footer from "../../components/footer/Footer";
+import Seo from "../../components/seo/Seo";
 
 function Home() {
   // Shared base styles for the three core footer graphics
@@ -38,25 +38,70 @@ function Home() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "RoofingContractor",
-    name: "Barneys Supply",
-    telephone: ["417-725-4153", "417-464-5794"],
-    email: "Barneynx44@gmail.com",
+    name: "Barneys Supply Company",
+    alternateName: "Barneys Supply",
+    telephone: ["+14177254153", "+14174645794"],
+    email: "BarneysSupplyCompany@gmail.com",
     priceRange: "$$",
+    foundingDate: "1944",
+    areaServed: [
+      "Southwest Missouri",
+      "The Ozarks",
+      "Springfield, MO",
+      "Nixa, MO",
+      "Ozark, MO",
+      "Branson, MO",
+      "Republic, MO",
+      "Bolivar, MO",
+    ],
     address: {
       "@type": "PostalAddress",
       addressRegion: "MO",
       addressCountry: "US",
     },
+    makesOffer: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Shingle Roofing",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Vinyl Siding",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Seamless Gutters",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Storm Damage Inspections",
+        },
+      },
+    ],
     description:
-      "Barneys Supply provides professional shingle roofing, vinyl siding, seamless gutters, and garage door installations throughout the Ozarks.",
+      "Barneys Supply Company provides professional shingle roofing, vinyl siding, seamless gutters, storm damage diagnostics, and exterior construction services throughout Southwest Missouri and the Ozarks.",
   };
 
   return (
+    <>
+      <Seo
+        title="Roofing, Siding & Seamless Gutters in the Ozarks"
+        description="Barneys Supply Company provides shingle roofing, vinyl siding, seamless gutters, storm damage repairs, and exterior construction services across Southwest Missouri."
+        path="/"
+        schema={localBusinessSchema}
+      />
     <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen pb-4 md:pb-8">
-      <script type="application/ld+json">
-        {JSON.stringify(localBusinessSchema)}
-      </script>
-
       <style>
         {`
           @keyframes fluidFadeUp {
@@ -92,6 +137,8 @@ function Home() {
                 src={ContactUs}
                 className="w-full h-full object-cover scale-90 cursor-pointer"
                 alt="Contact Us button"
+                loading="lazy"
+                decoding="async"
               />
             </Link>
           </div>
@@ -116,16 +163,22 @@ function Home() {
             src={SpringTime}
             className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
             alt="springtime deals in the ozarks"
+            loading="lazy"
+            decoding="async"
           />
           <img
             src={OurPromise}
             className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
-            alt="Our Promise"
+            alt="Barneys Supply Company exterior construction promise in Southwest Missouri"
+            loading="lazy"
+            decoding="async"
           />
           <img
             src={SomeServices}
             className="w-full h-auto object-contain md:w-[calc(50%-8px)] lg:w-[calc(50%-16px)] transition-all duration-300 md:rounded-xl md:shadow-[0_0_15px_rgba(0,0,0,0.9),_0_0_30px_rgba(239,68,68,0.6),_0_0_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] hover:md:shadow-[0_0_20px_rgba(0,0,0,0.9),_0_0_40px_rgba(239,68,68,0.9),_0_0_65px_rgba(234,179,8,0.7)]"
-            alt="Services Image"
+            alt="Barneys Supply Company roofing siding gutter and exterior services"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -138,7 +191,9 @@ function Home() {
                 md:drop-shadow-[0_0_10px_rgba(239,68,68,0.5)] 
                 hover:scale-[1.02] 
                 hover:md:drop-shadow-[0_0_20px_rgba(234,179,8,0.8)]"
-              alt="Services we offer."
+              alt="Services we offer for roofing siding gutters and storm damage"
+              loading="lazy"
+              decoding="async"
             />
           </Link>
 
@@ -150,8 +205,10 @@ function Home() {
                 <div className="relative w-full">
                   <img
                     src={ShingleRoofing}
-                    alt="Shingle Roofing"
+                    alt="Shingle roofing installation and repair service"
                     className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 </div>
@@ -188,8 +245,10 @@ function Home() {
                 <div className="relative w-full">
                   <img
                     src={VinylSiding}
-                    alt="Vinyl Siding"
+                    alt="Premium vinyl siding installation service"
                     className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 </div>
@@ -226,8 +285,10 @@ function Home() {
                 <div className="relative w-full">
                   <img
                     src={Gutters}
-                    alt="Seamless Gutters"
+                    alt="Custom seamless gutter installation service"
                     className="w-full h-auto object-contain block opacity-90 md:opacity-70 group-hover:md:opacity-90 transition-opacity duration-300"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 </div>
@@ -263,7 +324,9 @@ function Home() {
               <img
                 src={CallUs}
                 className="w-full h-auto object-contain cursor-pointer"
-                alt="Call us"
+                alt="Call Barneys Supply Company for an exterior construction estimate"
+                loading="lazy"
+                decoding="async"
               />
             </a>
           </div>
@@ -276,6 +339,8 @@ function Home() {
                 src={PhoneNumbers}
                 className={baseFooterImageClass}
                 alt="Contact Barneys Supply - Call our team today"
+                loading="lazy"
+                decoding="async"
               />
               <div className="sr-only">
                 <h2>Contact Barneys Supply</h2>
@@ -301,12 +366,14 @@ function Home() {
                   src={EmailUs}
                   className={`${baseFooterImageClass} cursor-pointer hover:scale-[1.04] hover:md:drop-shadow-[0_6px_25px_rgba(234,179,8,0.7)]`}
                   alt="Email Barneys Supply for a free exterior construction estimate"
+                  loading="lazy"
+                  decoding="async"
                 />
               </Link>
               <div className="sr-only">
                 <p>
                   Send an email to request a free quote on roofing repairs,
-                  siding installations, or garage door services.
+                  siding installations, seamless gutter systems, or storm damage repairs.
                 </p>
                 <a href="mailto:BarneysSupplyCompany@gmail.com">
                   BarneysSupplyCompany@gmail.com
@@ -320,6 +387,8 @@ function Home() {
                 src={Established}
                 className={baseFooterImageClass}
                 alt="Barneys Supply - Established in 1944"
+                loading="lazy"
+                decoding="async"
               />
               <div className="sr-only">
                 <p>
@@ -335,6 +404,7 @@ function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

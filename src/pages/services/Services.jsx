@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import NavBar from "../../components/navigation/NavBar";
 import Footer from "../../components/footer/Footer";
+import Seo from "../../components/seo/Seo";
 
 function Services() {
   // Reusable outer card gradient border (Matches Home, About, and Contact layouts)
@@ -100,6 +101,12 @@ function Services() {
   ];
 
   return (
+    <>
+      <Seo
+        title="Roofing, Vinyl Siding & Seamless Gutter Services"
+        description="Explore Barneys Supply Company services including shingle roofing systems, premium vinyl siding, seamless gutters, storm diagnostics, repairs, and exterior project assessments."
+        path="/services"
+      />
     <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen pb-4 md:pb-8">
       {/* Fluid entry animation matching the style guide */}
       <style>
@@ -235,6 +242,7 @@ function Services() {
         <Footer />
       </div>
     </div>
+    </>
   );
 }
 

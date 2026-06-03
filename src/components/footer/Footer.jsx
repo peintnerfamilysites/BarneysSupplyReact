@@ -39,6 +39,8 @@ function Footer() {
             src={PfsFooter}
             className="w-40 md:w-56 h-auto object-contain cursor-pointer transition-all duration-300 hover:scale-[1.05] filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)]"
             alt="PFS Footer representation"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

@@ -1,8 +1,15 @@
 import NavBar from "../../components/navigation/NavBar";
 import Footer from "../../components/footer/Footer";
+import Seo from "../../components/seo/Seo";
 
 function TermsOfUse() {
   return (
+    <>
+      <Seo
+        title="Terms of Use"
+        description="Read the terms of use for the Barneys Supply Company website, including information about website content, estimates, third-party links, and liability limitations."
+        path="/terms"
+      />
     <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen flex flex-col">
       <NavBar />
 
@@ -84,6 +91,7 @@ function TermsOfUse() {
 
       <Footer />
     </div>
+    </>
   );
 }
 

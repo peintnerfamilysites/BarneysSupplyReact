@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../../components/navigation/NavBar";
 import Footer from "../../components/footer/Footer";
+import Seo from "../../components/seo/Seo";
 
 function Insurance() {
   // --- State for Interactive Claims Tool ---
@@ -86,6 +87,12 @@ function Insurance() {
   const guidance = getCalculatorGuidance();
 
   return (
+    <>
+      <Seo
+        title="Storm Damage & Insurance Claim Help"
+        description="Barneys Supply Company helps Southwest Missouri homeowners document storm damage, inspect roofing and exterior systems, and prepare for insurance claim conversations."
+        path="/insurance"
+      />
     <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen pb-4 md:pb-8">
       {/* Fluid smooth frame entrance animation */}
       <style>
@@ -406,6 +413,7 @@ function Insurance() {
         <Footer />
       </div>
     </div>
+    </>
   );
 }
 

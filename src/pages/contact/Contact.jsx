@@ -4,6 +4,7 @@ import NavBar from "../../components/navigation/NavBar";
 import PhoneNumbers from "../../assets/phone-numbers.webp";
 import Established from "../../assets/established.webp";
 import Footer from "../../components/footer/Footer";
+import Seo from "../../components/seo/Seo";
 
 function Contact() {
   // Shared base styles for the top brand graphics
@@ -42,15 +43,9 @@ function Contact() {
     setSubmitStatus(null);
 
     // Dynamic environment variable resolution (Works for Vite or CRA)
-    const serviceId =
-      import.meta.env?.VITE_EMAILJS_SERVICE_ID ||
-      process.env.REACT_APP_EMAILJS_SERVICE_ID;
-    const templateId =
-      import.meta.env?.VITE_EMAILJS_TEMPLATE_ID ||
-      process.env.REACT_APP_TEMPLATE_ID;
-    const publicKey =
-      import.meta.env?.VITE_EMAILJS_PUBLIC_KEY ||
-      process.env.REACT_APP_PUBLIC_KEY;
+    const serviceId = import.meta.env?.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env?.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env?.VITE_EMAILJS_PUBLIC_KEY;
 
     // Mapping your state data to match your EmailJS Template variable slots
     const templateParams = {
@@ -87,6 +82,12 @@ function Contact() {
   };
 
   return (
+    <>
+      <Seo
+        title="Contact Barneys Supply Company for a Free Estimate"
+        description="Contact Barneys Supply Company for a free exterior construction estimate for roofing, siding, seamless gutters, storm damage repairs, and property upkeep in the Ozarks."
+        path="/contact"
+      />
     <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen pb-4 md:pb-8">
       <style>
         {`
@@ -113,6 +114,8 @@ function Contact() {
                 src={PhoneNumbers}
                 className={baseTopImageClass}
                 alt="Contact Barneys Supply - Call our team today"
+                loading="lazy"
+                decoding="async"
               />
               <div className="sr-only">
                 <h2>Contact Barneys Supply</h2>
@@ -146,6 +149,8 @@ function Contact() {
               src={Established}
               className={baseTopImageClass}
               alt="Barneys Supply - Established in 1944"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
@@ -322,7 +327,6 @@ function Contact() {
                     <option value="Shingle Roofing">Shingle Roofing</option>
                     <option value="Vinyl Siding">Vinyl Siding</option>
                     <option value="Seamless Gutters">Seamless Gutters</option>
-                    <option value="Garage Doors">Garage Doors</option>
                     <option value="General Inquiry">
                       Other Exterior Service
                     </option>
@@ -369,6 +373,8 @@ function Contact() {
             src={Established}
             className="w-full max-w-[240px] h-auto object-contain cursor-pointer"
             alt="Barneys Supply - Established in 1944"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -376,6 +382,7 @@ function Contact() {
         <Footer />
       </div>
     </div>
+    </>
   );
 }
 

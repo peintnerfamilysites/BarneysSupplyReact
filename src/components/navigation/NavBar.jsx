@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import NavOpen from "../../assets/nav-open.webp";
@@ -182,6 +183,8 @@ function NavBar() {
               className={`w-full h-full object-contain transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
                 group-hover:scale-110 group-hover:brightness-110 group-active:scale-90
                 ${isOpen ? "rotate-90 brightness-90 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]" : ""}`}
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -227,6 +230,8 @@ function NavBar() {
               src={MainSitesLogo}
               alt="Main Sites Logo"
               className="w-full h-auto mb-10 max-h-[500px]:mb-4 block mx-auto lg:w-full lg:h-full lg:scale-100 lg:object-contain lg:my-0 lg:mb-0 transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:brightness-125"
+              loading="lazy"
+              decoding="async"
             />
           </Link>
         </li>
@@ -316,6 +321,8 @@ function NavBar() {
               src={CallUs}
               alt="Button to call Barneys Supply"
               className="w-full h-auto object-contain block mx-auto"
+              loading="lazy"
+              decoding="async"
             />
           </a>
         </li>
@@ -330,6 +337,8 @@ function NavBar() {
               src={ContactUs}
               alt="Contact Us Button"
               className="h-14 w-auto object-contain block scale-[3.0] transition-all duration-300 group-hover:brightness-125"
+              loading="lazy"
+              decoding="async"
             />
           </Link>
         </li>
