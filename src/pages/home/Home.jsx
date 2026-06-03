@@ -259,7 +259,7 @@ function Home() {
           </div>
 
           <div className="block md:hidden max-w-[160px] w-full mx-auto mt-6">
-            <a href="tel:17254153">
+            <a href="tel:14177254153">
               <img
                 src={CallUs}
                 className="w-full h-auto object-contain cursor-pointer"
@@ -308,7 +308,9 @@ function Home() {
                   Send an email to request a free quote on roofing repairs,
                   siding installations, or garage door services.
                 </p>
-                <a href="mailto:Barneynx44@gmail.com">Barneynx44@gmail.com</a>
+                <a href="mailto:BarneysSupplyCompany@gmail.com">
+                  BarneysSupplyCompany@gmail.com
+                </a>
               </div>
             </div>
 
