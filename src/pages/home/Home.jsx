@@ -14,85 +14,14 @@ import Established from "../../assets/established.webp";
 import EmailUs from "../../assets/email-us.webp";
 import Footer from "../../components/footer/Footer";
 import Seo from "../../components/seo/Seo";
+import { localBusinessSchema } from "../../config/seo";
+import {
+  footerGraphicClass,
+  homeCardBorderClass,
+  homeCardInnerClass,
+} from "../../styles/classNames";
 
 function Home() {
-  // Shared base styles for the three core footer graphics
-  const baseFooterImageClass = `
-    h-auto object-contain 
-    transition-all duration-300
-    md:drop-shadow-[0_6px_12px_rgba(239,68,68,0.35)] 
-  `.trim();
-
-  // Reusable card outer border layout
-  const cardOuterBorderClass = `
-    w-full flex flex-col md:block relative group overflow-hidden rounded-xl 
-    bg-gradient-to-r from-black via-red-600 to-yellow-500 p-[1px]
-    shadow-lg transition-all duration-300 hover:scale-[1.02] 
-    hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]
-  `.trim();
-
-  // Reusable card inner block content styling
-  const cardInnerContainerClass =
-    "w-full h-full bg-zinc-950 rounded-xl overflow-hidden relative";
-
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "RoofingContractor",
-    name: "Barneys Supply Company",
-    alternateName: "Barneys Supply",
-    telephone: ["+14177254153", "+14174645794"],
-    email: "BarneysSupplyCompany@gmail.com",
-    priceRange: "$$",
-    foundingDate: "1944",
-    areaServed: [
-      "Southwest Missouri",
-      "The Ozarks",
-      "Springfield, MO",
-      "Nixa, MO",
-      "Ozark, MO",
-      "Branson, MO",
-      "Republic, MO",
-      "Bolivar, MO",
-    ],
-    address: {
-      "@type": "PostalAddress",
-      addressRegion: "MO",
-      addressCountry: "US",
-    },
-    makesOffer: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Shingle Roofing",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Vinyl Siding",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Seamless Gutters",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Storm Damage Inspections",
-        },
-      },
-    ],
-    description:
-      "Barneys Supply Company provides professional shingle roofing, vinyl siding, seamless gutters, storm damage diagnostics, and exterior construction services throughout Southwest Missouri and the Ozarks.",
-  };
-
   return (
     <>
       <Seo
@@ -200,8 +129,8 @@ function Home() {
           {/* Grid setup for full-width content mapping with a maximum cap of 3 elements per line */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-6 w-full max-w-[96vw] justify-items-center">
             {/* Card 1: Shingle Roofing */}
-            <div className={cardOuterBorderClass}>
-              <div className={cardInnerContainerClass}>
+            <div className={homeCardBorderClass}>
+              <div className={homeCardInnerClass}>
                 <div className="relative w-full">
                   <img
                     src={ShingleRoofing}
@@ -240,8 +169,8 @@ function Home() {
             </div>
 
             {/* Card 2: Vinyl Siding */}
-            <div className={cardOuterBorderClass}>
-              <div className={cardInnerContainerClass}>
+            <div className={homeCardBorderClass}>
+              <div className={homeCardInnerClass}>
                 <div className="relative w-full">
                   <img
                     src={VinylSiding}
@@ -280,8 +209,8 @@ function Home() {
             </div>
 
             {/* Card 3: Seamless Gutters */}
-            <div className={cardOuterBorderClass}>
-              <div className={cardInnerContainerClass}>
+            <div className={homeCardBorderClass}>
+              <div className={homeCardInnerClass}>
                 <div className="relative w-full">
                   <img
                     src={Gutters}
@@ -337,7 +266,7 @@ function Home() {
             <div className="w-1/4 max-w-[280px] relative">
               <img
                 src={PhoneNumbers}
-                className={baseFooterImageClass}
+                className={footerGraphicClass}
                 alt="Contact Barneys Supply - Call our team today"
                 loading="lazy"
                 decoding="async"
@@ -364,7 +293,7 @@ function Home() {
               <Link to="/contact" className="block w-full h-full">
                 <img
                   src={EmailUs}
-                  className={`${baseFooterImageClass} cursor-pointer hover:scale-[1.04] hover:md:drop-shadow-[0_6px_25px_rgba(234,179,8,0.7)]`}
+                  className={`${footerGraphicClass} cursor-pointer hover:scale-[1.04] hover:md:drop-shadow-[0_6px_25px_rgba(234,179,8,0.7)]`}
                   alt="Email Barneys Supply for a free exterior construction estimate"
                   loading="lazy"
                   decoding="async"
@@ -385,7 +314,7 @@ function Home() {
             <div className="w-[35%] max-w-[440px] relative">
               <img
                 src={Established}
-                className={baseFooterImageClass}
+                className={footerGraphicClass}
                 alt="Barneys Supply - Established in 1944"
                 loading="lazy"
                 decoding="async"

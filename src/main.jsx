@@ -1,62 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
 import "./index.css";
-import Home from "./pages/home/Home.jsx";
-import About from "./pages/about/About.jsx";
-import Contact from "./pages/contact/Contact.jsx";
-import Services from "./pages/services/Services.jsx";
-import Insurance from "./pages/insurance/Insurance.jsx";
-import TermsOfUse from "./pages/termsofuse/TermsOfUse.jsx";
-import Error from "./pages/error/Error.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./components/layout/Layout.jsx";
+import { router } from "./app/router.jsx";
 
-// Define the routes for the application
-const router = createBrowserRouter(
-  [
-    {
-      // Parent route wrapping the entire application layout
-      element: <Layout />,
-      // This catches core code failures/crashes globally
-      errorElement: <Error />,
-      children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        {
-          path: "/about",
-          element: <About />,
-        },
-        {
-          path: "/contact",
-          element: <Contact />,
-        },
-        {
-          path: "/services",
-          element: <Services />,
-        },
-        {
-          path: "/insurance",
-          element: <Insurance />,
-        },
-        {
-          path: "/terms",
-          element: <TermsOfUse />,
-        },
-        {
-          path: "*",
-          element: <Error />,
-        },
-      ],
-    },
-  ],
-  {
-    basename: "/BarneysSupplyReact",
-  },
-);
-
-// Render the application using the router
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />

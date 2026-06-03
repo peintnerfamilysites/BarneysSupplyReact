@@ -60,69 +60,26 @@ function Seo({
 }) {
   useEffect(() => {
     const origin = window.location.origin;
-    const normalizedPath =
-      path === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${path}`;
+    const normalizedPath = path === "/" ? `${BASE_PATH}/` : `${BASE_PATH}${path}`;
     const url = `${origin}${normalizedPath}`;
-    const fullTitle = title.includes(SITE_NAME)
-      ? title
-      : `${title} | ${SITE_NAME}`;
+    const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
     const imageUrl = image.startsWith("http") ? image : `${origin}${image}`;
 
     document.title = fullTitle;
 
-    setMetaAttribute(
-      'meta[name="description"]',
-      { name: "description" },
-      description,
-    );
-    setMetaAttribute(
-      'meta[name="robots"]',
-      { name: "robots" },
-      "index, follow",
-    );
+    setMetaAttribute('meta[name="description"]', { name: "description" }, description);
+    setMetaAttribute('meta[name="robots"]', { name: "robots" }, "index, follow");
     setMetaAttribute('meta[name="author"]', { name: "author" }, SITE_NAME);
-    setMetaAttribute(
-      'meta[property="og:site_name"]',
-      { property: "og:site_name" },
-      SITE_NAME,
-    );
-    setMetaAttribute(
-      'meta[property="og:title"]',
-      { property: "og:title" },
-      fullTitle,
-    );
-    setMetaAttribute(
-      'meta[property="og:description"]',
-      { property: "og:description" },
-      description,
-    );
+    setMetaAttribute('meta[property="og:site_name"]', { property: "og:site_name" }, SITE_NAME);
+    setMetaAttribute('meta[property="og:title"]', { property: "og:title" }, fullTitle);
+    setMetaAttribute('meta[property="og:description"]', { property: "og:description" }, description);
     setMetaAttribute('meta[property="og:type"]', { property: "og:type" }, type);
     setMetaAttribute('meta[property="og:url"]', { property: "og:url" }, url);
-    setMetaAttribute(
-      'meta[property="og:image"]',
-      { property: "og:image" },
-      imageUrl,
-    );
-    setMetaAttribute(
-      'meta[name="twitter:card"]',
-      { name: "twitter:card" },
-      "summary_large_image",
-    );
-    setMetaAttribute(
-      'meta[name="twitter:title"]',
-      { name: "twitter:title" },
-      fullTitle,
-    );
-    setMetaAttribute(
-      'meta[name="twitter:description"]',
-      { name: "twitter:description" },
-      description,
-    );
-    setMetaAttribute(
-      'meta[name="twitter:image"]',
-      { name: "twitter:image" },
-      imageUrl,
-    );
+    setMetaAttribute('meta[property="og:image"]', { property: "og:image" }, imageUrl);
+    setMetaAttribute('meta[name="twitter:card"]', { name: "twitter:card" }, "summary_large_image");
+    setMetaAttribute('meta[name="twitter:title"]', { name: "twitter:title" }, fullTitle);
+    setMetaAttribute('meta[name="twitter:description"]', { name: "twitter:description" }, description);
+    setMetaAttribute('meta[name="twitter:image"]', { name: "twitter:image" }, imageUrl);
     setCanonical(url);
     setStructuredData(schema);
   }, [title, description, path, image, type, schema]);

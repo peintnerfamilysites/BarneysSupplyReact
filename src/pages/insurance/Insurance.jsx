@@ -1,116 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import NavBar from "../../components/navigation/NavBar";
 import Footer from "../../components/footer/Footer";
-import Seo from "../../components/seo/Seo";
+import PageShell from "../../components/page/PageShell";
+import { routeSeo } from "../../config/seo";
+import { gradientCardBorderClass } from "../../styles/classNames";
+import { getCalculatorGuidance, insuranceFrictionPoints } from "./data/insuranceData";
 
 function Insurance() {
-  // --- State for Interactive Claims Tool ---
   const [damageType, setDamageType] = useState("hail");
   const [roofAge, setRoofAge] = useState(12);
   const [claimStatus, setClaimStatus] = useState("not_filed");
 
-  // Reusable outer card layout (Matching Home, About, and Services)
-  const cardOuterBorderClass = `
-    w-full relative group overflow-hidden rounded-xl 
-    bg-gradient-to-r from-black via-red-600 to-yellow-500 p-[1px]
-    shadow-lg transition-all duration-300 hover:scale-[1.01] 
-    hover:shadow-[0_0_30px_rgba(239,68,68,0.25)]
-  `.trim();
-
-  // Common friction points homeowners face during storm claims
-  const insuranceFrictionPoints = [
-    {
-      title: "The 'Delayed or Denied' Game",
-      problem:
-        "Insurance providers often use confusing, technical damage guidelines to delay processing structural claims, hoping homeowners give up or accept lower payouts.",
-    },
-    {
-      title: "Missed Hidden Structural Faults",
-      problem:
-        "Standard claims adjusters look at surface-level impact. They regularly miss compromised underlying decking foundations or fractures that lead to catastrophic structural rot down the road.",
-    },
-    {
-      title: "Vague, Incomplete Estimations",
-      problem:
-        "Payout scopes frequently underestimate real-world premium material prices or omit localized building code compliance costs required in Southwest Missouri.",
-    },
-  ];
-
-  // Helper function to return dynamic guidance based on user tool input
-  const getCalculatorGuidance = () => {
-    let steps = [];
-    let urgency = "Moderate";
-    let colorClass = "text-yellow-500";
-
-    if (
-      damageType === "leak" ||
-      damageType === "tree" ||
-      claimStatus === "denied"
-    ) {
-      urgency = "Critical / Immediate Action";
-      colorClass = "text-red-500";
-    }
-
-    if (claimStatus === "not_filed") {
-      steps.push(
-        "Schedule a thorough structural diagnostic to map damage fields before contacting your carrier.",
-      );
-      steps.push(
-        "Ensure your contractor tags structural codes (e.g., ice & water shield requirements).",
-      );
-    } else if (claimStatus === "waiting") {
-      steps.push(
-        "Request a joint on-site meeting. Our experts will stand out on the roof side-by-side with your insurance adjuster.",
-      );
-      steps.push(
-        "Prepare explicit structural, multi-angle photographic evidence.",
-      );
-    } else {
-      steps.push(
-        "Obtain a complete itemized copy of the adjuster's structural estimate layout breakdown.",
-      );
-      steps.push(
-        "File a formal structural dispute/supplement request backed by our certified assessment proof.",
-      );
-    }
-
-    if (Number(roofAge) > 15) {
-      steps.push(
-        "Note: Roof components older than 15 years face stricter depreciation models. Detailed framework assessments are vital.",
-      );
-    }
-
-    return { steps, urgency, colorClass };
-  };
-
-  const guidance = getCalculatorGuidance();
+  const guidance = getCalculatorGuidance({ damageType, roofAge, claimStatus });
 
   return (
-    <>
-      <Seo
-        title="Storm Damage & Insurance Claim Help"
-        description="Barneys Supply Company helps Southwest Missouri homeowners document storm damage, inspect roofing and exterior systems, and prepare for insurance claim conversations."
-        path="/insurance"
-      />
-    <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen pb-4 md:pb-8">
-      {/* Fluid smooth frame entrance animation */}
-      <style>
-        {`
-          @keyframes fluidFadeUp {
-            0% { opacity: 0; transform: translateY(16px); }
-            100% { opacity: 1; transform: translateY(0); }
-          }
-          .animate-fade-in-up {
-            opacity: 0;
-            animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          }
-        `}
-      </style>
-
-      <NavBar />
-
-      <div className="flex flex-col items-center gap-1 pt-2 w-full animate-fade-in-up">
+    <PageShell seo={routeSeo.insurance}>
         {/* ================= HERO HEADLINE ================= */}
         <div className="w-full max-w-[96vw] px-4 mt-6 md:mt-8 mb-6 md:mb-10 text-center md:text-left">
           <div className="max-w-3xl">
@@ -129,7 +33,7 @@ function Insurance() {
 
         {/* ================= SECTION: THE INSIDE CHALLENGES ================= */}
         <div className="w-full max-w-[96vw] px-4 mb-8">
-          <div className={cardOuterBorderClass}>
+          <div className={gradientCardBorderClass}>
             <div className="w-full h-full bg-zinc-950 rounded-xl p-6 md:p-10">
               <div className="border-b border-zinc-900 pb-4 mb-6">
                 <h2 className="text-xl md:text-2xl font-bold text-white tracking-wide flex items-center gap-2">
@@ -409,11 +313,9 @@ function Insurance() {
           </div>
         </div>
 
-        {/* ================= FOOTER ASSET (ANIMATED) ================= */}
+
         <Footer />
-      </div>
-    </div>
-    </>
+    </PageShell>
   );
 }
 

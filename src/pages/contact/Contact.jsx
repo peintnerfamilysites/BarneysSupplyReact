@@ -1,110 +1,30 @@
-import { useState } from "react";
-import emailjs from "@emailjs/browser"; // 1. Import EmailJS
-import NavBar from "../../components/navigation/NavBar";
 import PhoneNumbers from "../../assets/phone-numbers.webp";
 import Established from "../../assets/established.webp";
 import Footer from "../../components/footer/Footer";
-import Seo from "../../components/seo/Seo";
+import PageShell from "../../components/page/PageShell";
+import { routeSeo } from "../../config/seo";
+import { useEstimateForm } from "./hooks/useEstimateForm";
 
 function Contact() {
-  // Shared base styles for the top brand graphics
   const baseTopImageClass = `
-    w-full max-w-[260px] md:max-w-[280px] h-auto object-contain 
+    w-full max-w-[260px] md:max-w-[280px] h-auto object-contain
     transition-all duration-300
-    md:drop-shadow-[0_6px_12px_rgba(239,68,68,0.25)] 
+    md:drop-shadow-[0_6px_12px_rgba(239,68,68,0.25)]
     cursor-pointer mx-auto
   `.trim();
 
-  // Reusable outer card border layout (Mirrored from Home)
   const cardOuterBorderClass = `
-    w-full relative group overflow-hidden rounded-xl 
+    w-full relative group overflow-hidden rounded-xl
     bg-gradient-to-r from-black via-red-600 to-yellow-500 p-[1px]
-    shadow-lg transition-all duration-300 hover:scale-[1.01] 
+    shadow-lg transition-all duration-300 hover:scale-[1.01]
     hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]
   `.trim();
 
-  // Contact form state management
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    serviceNeeded: "General Inquiry",
-    message: "",
-  });
-
-  // UI Status tracking states
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
-
-  // 2. The EmailJS form submission logic
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    // Dynamic environment variable resolution (Works for Vite or CRA)
-    const serviceId = import.meta.env?.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env?.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env?.VITE_EMAILJS_PUBLIC_KEY;
-
-    // Mapping your state data to match your EmailJS Template variable slots
-    const templateParams = {
-      from_name: formData.name,
-      from_phone: formData.phone,
-      from_email: formData.email,
-      service_requested: formData.serviceNeeded,
-      message: formData.message,
-    };
-
-    try {
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
-
-      setSubmitStatus("success");
-      // Reset form upon successful delivery
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        serviceNeeded: "General Inquiry",
-        message: "",
-      });
-    } catch (error) {
-      console.error("EmailJS Submission Failure:", error);
-      setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleInputChange = e => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const { formData, isSubmitting, submitStatus, handleInputChange, handleSubmit } =
+    useEstimateForm();
 
   return (
-    <>
-      <Seo
-        title="Contact Barneys Supply Company for a Free Estimate"
-        description="Contact Barneys Supply Company for a free exterior construction estimate for roofing, siding, seamless gutters, storm damage repairs, and property upkeep in the Ozarks."
-        path="/contact"
-      />
-    <div className="bg-gradient-to-bl from-black md:via-black md:via-50% via-red-950 to-amber-950 min-h-screen pb-4 md:pb-8">
-      <style>
-        {`
-          @keyframes fluidFadeUp {
-            0% { opacity: 0; transform: translateY(16px); }
-            100% { opacity: 1; transform: translateY(0); }
-          }
-          .animate-fade-in-up {
-            opacity: 0;
-            animation: fluidFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          }
-        `}
-      </style>
-
-      <NavBar />
-
-      <div className="flex flex-col items-center gap-1 pt-2 w-full animate-fade-in-up">
+    <PageShell seo={routeSeo.contact}>
         {/* Top Header Layout Section */}
         <div className="w-full max-w-[96vw] px-4 mt-6 md:mt-8 mb-6 md:mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Call Us Graphic Container - Hidden on mobile, Flanks Left on Desktop */}
@@ -378,11 +298,9 @@ function Contact() {
           />
         </div>
 
-        {/* Footer Brand Logo Block */}
+
         <Footer />
-      </div>
-    </div>
-    </>
+    </PageShell>
   );
 }
 

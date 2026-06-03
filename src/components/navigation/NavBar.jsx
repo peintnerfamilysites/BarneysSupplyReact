@@ -5,6 +5,7 @@ import NavOpen from "../../assets/nav-open.webp";
 import MainSitesLogo from "../../assets/main-sites-logo.webp";
 import CallUs from "../../assets/call-us.webp";
 import ContactUs from "../../assets/contact-us.webp";
+import { NAV_ITEMS } from "./navItems";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -237,75 +238,26 @@ function NavBar() {
         </li>
 
         <li className="w-full flex flex-col items-center justify-center gap-5 pb-12 lg:flex-row lg:flex-1 lg:justify-center lg:gap-3 xl:gap-5 lg:w-auto lg:pb-0 flex-wrap max-w-xl lg:max-w-none">
-          <div
-            onClick={e => e.stopPropagation()}
-            className={`${getButtonConfig("/").container} ${getMobileStaggerClass()}`}
-            style={{ animationDelay: isOpen ? "100ms" : "0ms" }}
-          >
-            <Link
-              to="/"
-              onClick={e => handleNavLinkClick(e, "/")}
-              className={getButtonConfig("/").link}
-            >
-              Home
-            </Link>
-          </div>
+          {NAV_ITEMS.map(item => {
+            const buttonConfig = getButtonConfig(item.path);
 
-          <div
-            onClick={e => e.stopPropagation()}
-            className={`${getButtonConfig("/about").container} ${getMobileStaggerClass()}`}
-            style={{ animationDelay: isOpen ? "160ms" : "0ms" }}
-          >
-            <Link
-              to="/about"
-              onClick={e => handleNavLinkClick(e, "/about")}
-              className={getButtonConfig("/about").link}
-            >
-              About Us
-            </Link>
-          </div>
-
-          <div
-            onClick={e => e.stopPropagation()}
-            className={`${getButtonConfig("/contact").container} ${getMobileStaggerClass()}`}
-            style={{ animationDelay: isOpen ? "220ms" : "0ms" }}
-          >
-            <Link
-              to="/contact"
-              onClick={e => handleNavLinkClick(e, "/contact")}
-              className={getButtonConfig("/contact").link}
-            >
-              Contact Us
-            </Link>
-          </div>
-
-          <div
-            onClick={e => e.stopPropagation()}
-            className={`${getButtonConfig("/services").container} ${getMobileStaggerClass()}`}
-            style={{ animationDelay: isOpen ? "280ms" : "0ms" }}
-          >
-            <Link
-              to="/services"
-              onClick={e => handleNavLinkClick(e, "/services")}
-              className={getButtonConfig("/services").link}
-            >
-              Services
-            </Link>
-          </div>
-
-          <div
-            onClick={e => e.stopPropagation()}
-            className={`${getButtonConfig("/insurance").container} ${getMobileStaggerClass()}`}
-            style={{ animationDelay: isOpen ? "340ms" : "0ms" }}
-          >
-            <Link
-              to="/insurance"
-              onClick={e => handleNavLinkClick(e, "/insurance")}
-              className={getButtonConfig("/insurance").link}
-            >
-              Insurance
-            </Link>
-          </div>
+            return (
+              <div
+                key={item.path}
+                onClick={e => e.stopPropagation()}
+                className={`${buttonConfig.container} ${getMobileStaggerClass()}`}
+                style={{ animationDelay: isOpen ? item.delay : "0ms" }}
+              >
+                <Link
+                  to={item.path}
+                  onClick={e => handleNavLinkClick(e, item.path)}
+                  className={buttonConfig.link}
+                >
+                  {item.label}
+                </Link>
+              </div>
+            );
+          })}
         </li>
 
         <li
