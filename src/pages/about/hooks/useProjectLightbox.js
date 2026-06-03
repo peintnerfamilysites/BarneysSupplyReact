@@ -10,10 +10,8 @@ export function useProjectLightbox(projects) {
 
   const imageState = useMemo(() => {
     const prevImageIndex =
-      (currentImageIndex - 1 + currentProjectImages.length) %
-      currentProjectImages.length;
-    const nextImageIndex =
-      (currentImageIndex + 1) % currentProjectImages.length;
+      (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
+    const nextImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
 
     return {
       currentImage: currentProjectImages[currentImageIndex],
@@ -31,17 +29,19 @@ export function useProjectLightbox(projects) {
   const closeLightbox = () => setIsOpen(false);
 
   const nextImage = e => {
-    e.stopPropagation();
-    setCurrentImageIndex(
-      prevIndex => (prevIndex + 1) % currentProjectImages.length,
-    );
+    e?.stopPropagation?.();
+    setCurrentImageIndex(prevIndex => (prevIndex + 1) % currentProjectImages.length);
   };
 
   const prevImage = e => {
-    e.stopPropagation();
+    e?.stopPropagation?.();
     setCurrentImageIndex(prevIndex =>
       prevIndex === 0 ? currentProjectImages.length - 1 : prevIndex - 1,
     );
+  };
+
+  const selectImage = index => {
+    setCurrentImageIndex(index);
   };
 
   return {
@@ -54,5 +54,6 @@ export function useProjectLightbox(projects) {
     closeLightbox,
     nextImage,
     prevImage,
+    selectImage,
   };
 }
